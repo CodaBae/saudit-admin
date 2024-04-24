@@ -1,6 +1,7 @@
 import React from 'react'
 import { Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { ReactTyped } from "react-typed";
 
 import Company from '../../assets/svg/company.svg'
 import Arrow from '../../assets/svg/arrow-right.svg'
@@ -52,10 +53,15 @@ const Dashboard = () => {
 
   return (
     <div className='pt-[25px] flex flex-col gap-[28px]'>
-        <p className='font-medium text-[#000] font-Kumbh text-[37px]'>Good Morning, Hanotu</p>
+        <p className='font-medium text-[#000] font-Kumbh text-[37px]'>
+            <ReactTyped 
+                strings={[`Good Morning, Hanotu`]} 
+                typeSpeed={40} 
+            />
+        </p>
         <div className='flex items-center gap-[25px]'>
 
-            <div className='w-[300px] rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
+            <div className='w-[300px] cursor-pointer hover:border-[#E6F8FF] hover:border-4 hover:shadow-lg hover:scale-100 rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
                 <div className='flex items-center gap-1.5'>
                     <div className='bg-[#00CF6C14] w-[41px] h-[39px] flex items-center justify-center rounded-[10px]'>
                         <img src={Company} alt='company'/>
@@ -77,7 +83,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className='w-[300px] rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
+            <div className='w-[300px] cursor-pointer hover:border-[#E6F8FF] hover:border-4 hover:shadow-lg hover:scale-100 rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
                 <div className='flex items-center gap-1.5'>
                     <div className='bg-[#00CF6C14] w-[41px] h-[39px] flex items-center justify-center rounded-[10px]'>
                         <img src={File} alt='file'/>
@@ -99,7 +105,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className='w-[189px] rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
+            <div className='w-[189px] cursor-pointer hover:border-[#E6F8FF] hover:border-4 hover:shadow-lg hover:scale-100 rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col'>
                 <div className='flex items-center gap-1.5'>
                     <div className='bg-[#CF880017] w-[41px] h-[39px] flex items-center justify-center rounded-[10px]'>
                         <img src={File} alt='file'/>
@@ -113,7 +119,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className='w-[189px] rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col' onClick={() => navigate("/questions")}>
+            <div className='w-[189px] cursor-pointer hover:border-[#E6F8FF] hover:border-4 hover:shadow-lg hover:scale-100 rounded-lg border border-[#D3D3D3] gap-[19px] p-4 h-[204px] flex flex-col' onClick={() => navigate("/questions")}>
                 <div className='flex items-center gap-1.5'>
                     <div className='bg-[#00CF6C14] w-[41px] h-[39px] flex items-center justify-center rounded-[10px]'>
                         <img src={File} alt='file'/>
