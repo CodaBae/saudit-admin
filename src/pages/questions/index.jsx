@@ -79,6 +79,7 @@ import Idea from "../../assets/svg/idea.svg";
 import Section from './components/Section';
 import Choice from './components/Choice';
 import SubSection from './components/SubSection';
+import SectionB from './components/SectionB';
 
 const QuestionType = {
   BEGIN: "Let's Begin",
@@ -90,6 +91,7 @@ const Questions = () => {
   const [type, setType] = useState(QuestionType.CREATE);
   const [showChoice, setShowChoice] = useState(false);
   const [sections, setSections] = useState([]);
+  const [sectionsB, setSectionsB] = useState([]);
   const [subSections, setSubSections] = useState([]);
   const [choices, setChoices] = useState([]);
   const [show, setShow] = useState(false);
@@ -100,13 +102,17 @@ const Questions = () => {
 
   console.log(sections, "sections")
   console.log(subSections, "subSections")
+  console.log(sectionsB, "sectionsB")
   console.log(choices, "choices")
 
   const addSection = () => {
     setSections([...sections, { id: sections.length + 1 }]);
   };
 
-  
+  const addSectionB = () => {
+    setSectionsB([...sectionsB, { id: sectionsB.length + 1 }]);
+  };
+
   const addSubSection = () => {
     setSubSections([...subSections, { id: subSections.length + 1 }]);
   };
@@ -117,6 +123,10 @@ const Questions = () => {
 
   const handleDeleteSection = (sectionId) => {
     setSections(sections.filter(section => section.id !== sectionId));
+  };
+
+  const handleDeleteSectionB = (sectionBId) => {
+    setSectionsB(sectionsB.filter(sectionB => sectionB.id !== sectionBId));
   };
 
   const handleDeleteSubSection = (subSectionId) => {
@@ -138,6 +148,7 @@ const Questions = () => {
       addSubSection()
     } else {
       addSection();
+      addSectionB();
     }
   }
 
@@ -152,6 +163,7 @@ const Questions = () => {
       </div>
 
       {type === QuestionType.FILL_FORM &&  sections.map(section => <Section key={section.id} sectionId={section.id} onDelete={handleDeleteSection} setType={setType} />) }
+      {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)}
       {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)}
       {showChoice && choices.map(choice => <Choice key={choice.id} choiceId={choice.id} onDelete={handleDeleteChoice} setShowChoice={setShowChoice} />)}
 
