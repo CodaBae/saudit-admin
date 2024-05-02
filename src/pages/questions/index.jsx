@@ -167,7 +167,7 @@ const Questions = () => {
         />
         
         <ButtonWithIcon 
-            onClick={() => {sections?.length > 0 ? choiceButton() : null}} 
+            onClick={() => {subSections?.length > 0 ? choiceButton() : null}} 
             icon={<div className="w-[20px] h-[20px] rounded-full flex justify-center items-center border border-[#288766]"><div className="bg-[#00BA78] rounded-full w-[14px] h-[14px]"></div></div>} 
             label="Choice" 
         />
