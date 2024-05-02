@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { IoIosArrowDown } from "react-icons/io";
 
 import Copy from "../../../assets/svg/copy.svg"
 import Bin from "../../../assets/svg/bin.svg"
@@ -22,18 +23,57 @@ const Section = ({ setType, sectionId, onDelete }) => {
             </div>
         </div>
         <div className='flex flex-col gap-4'>
-            <input 
-                type='text'
-                className='w-full bg-[#fff] p-4 outline-none text-[#000] h-[80px] font-Kumbh font-semibold text-[22px] mt-[20px]' 
-                placeholder='Module Title'
-                onChange={(e) => handleTitleChange(e)}
-            />
-            <input 
-                type='text'
-                className='w-full bg-[#fff] p-4 outline-none text-[#000] h-[80px] font-Kumbh font-semibold text-[22px] ' 
-                placeholder='Goal'
-                onChange={(e) => handleTitleChange(e)}
-            />
+
+            <div 
+                className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' 
+            >
+                <p className='font-medium text-[22px] font-Kumbh'>Select Sector</p>
+                <IoIosArrowDown className='text-[22px]' />
+            </div>
+
+            <div className='w-full flex items-center gap-[19px] mt-[20px]'>
+                <div 
+                    className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px] font-semibold  ' 
+                >
+                    <p className='font-medium text-[22px] font-Kumbh'>Select Sector</p>
+                    <IoIosArrowDown className='text-[22px]'/>
+                </div>
+                <div 
+                    className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px] font-semibold  ' 
+                >
+                    <p className='font-medium text-[22px] font-Kumbh'>Type</p>
+                    <IoIosArrowDown className='text-[22px]' />
+                </div>
+            </div>
+
+            <div 
+                className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' 
+            >
+                <p className='font-medium text-[22px] font-Kumbh'>Industry function</p>
+                <IoIosArrowDown className='text-[22px]' />
+            </div>
+
+            <div 
+                className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' 
+            >
+                <p className='font-medium text-[22px] font-Kumbh'>User function</p>
+                <IoIosArrowDown className='text-[22px]' />
+            </div>
+
+            <div 
+                className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' 
+            >
+                <p className='font-medium text-[22px] font-Kumbh'>Select assessment category</p>
+                <IoIosArrowDown className='text-[22px]' />
+            </div>
+
+            <div 
+                className='w-full bg-[#fff] pl-5 pr-[36px] py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' 
+            >
+                <p className='font-medium text-[22px] font-Kumbh'>Select compliance category</p>
+                <IoIosArrowDown className='text-[22px]' />
+            </div>
+           
         </div>
     </div>
   )

@@ -78,6 +78,7 @@ import Hamburger from "../../assets/svg/section.svg";
 import Idea from "../../assets/svg/idea.svg";
 import Section from './components/Section';
 import Choice from './components/Choice';
+import SubSection from './components/SubSection';
 
 const QuestionType = {
   BEGIN: "Let's Begin",
@@ -89,6 +90,7 @@ const Questions = () => {
   const [type, setType] = useState(QuestionType.CREATE);
   const [showChoice, setShowChoice] = useState(false);
   const [sections, setSections] = useState([]);
+  const [subSections, setSubSections] = useState([]);
   const [choices, setChoices] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -97,10 +99,16 @@ const Questions = () => {
   };
 
   console.log(sections, "sections")
+  console.log(subSections, "subSections")
   console.log(choices, "choices")
 
   const addSection = () => {
     setSections([...sections, { id: sections.length + 1 }]);
+  };
+
+  
+  const addSubSection = () => {
+    setSubSections([...subSections, { id: subSections.length + 1 }]);
   };
 
   const addChoice = () => {
@@ -109,15 +117,28 @@ const Questions = () => {
 
   const handleDeleteSection = (sectionId) => {
     setSections(sections.filter(section => section.id !== sectionId));
-};
+  };
 
-const handleDeleteChoice = (choiceId) => {
+  const handleDeleteSubSection = (subSectionId) => {
+    setSubSections(subSections.filter(subSection => subSection.id !== subSectionId));
+  };
+
+  const handleDeleteChoice = (choiceId) => {
     setChoices(choices.filter(choice => choice.id !== choiceId));
-}
+  }
 
   const choiceButton = () => {
     setShowChoice(true); 
     addChoice();
+  }
+
+  const handleShowSection = () => {
+    setType(QuestionType.FILL_FORM); 
+    if(sections.length === 1) {
+      addSubSection()
+    } else {
+      addSection();
+    }
   }
 
   return (
@@ -130,17 +151,17 @@ const handleDeleteChoice = (choiceId) => {
         <p className={type === QuestionType.BEGIN ? "text-[#A1A1A1] font-Kumbh text-[17px]" : "hidden"}>Start with a section</p>
       </div>
 
-      {type === QuestionType.FILL_FORM &&  sections.map(section => <Section key={section.id} sectionId={section.id} onDelete={handleDeleteSection} setType={setType} />) }  {/*    <Section setType={setType}/> */}
-
-      {/* {} <Choice setShowChoice={setShowChoice}/>*/}
+      {type === QuestionType.FILL_FORM &&  sections.map(section => <Section key={section.id} sectionId={section.id} onDelete={handleDeleteSection} setType={setType} />) }
+      {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)}
       {showChoice && choices.map(choice => <Choice key={choice.id} choiceId={choice.id} onDelete={handleDeleteChoice} setShowChoice={setShowChoice} />)}
 
       <div className={`${type === QuestionType.BEGIN || show ? "flex items-center gap-2 mt-[89px]  animate__animated animate__fadeInUp" :  "hidden" }`}>
         <button onClick={() => {type === QuestionType.BEGIN ? setType(QuestionType.CREATE) : setShow(false)}} className="w-[66px] h-[62px] bg-[#00BA78] flex justify-center rounded-lg items-center">
           <MdClose className="text-[#fff]" />
         </button>
+
         <ButtonWithIcon 
-            onClick={() => {setType(QuestionType.FILL_FORM); addSection()}} 
+            onClick={() => handleShowSection()} 
             icon={Hamburger} 
             label="Section" 
         />
