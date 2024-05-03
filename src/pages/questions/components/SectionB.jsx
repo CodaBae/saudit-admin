@@ -16,7 +16,7 @@ const SectionB = ({ sectionBId, onDelete }) => {
     };
 
   return (
-    <div className='w-[1065px] mt-[33px] h-auto p-10  animate__animated animate__fadeInUp flex flex-col bg-[#F4F4F4] border border-x-0 border-b-0 border-t border-[#40D49F]'>
+    <div className='w-[1065px] mt-[33px] h-auto p-10 -z-10  animate__animated animate__fadeInUp flex flex-col bg-[#F4F4F4] border border-x-0 border-b-0 border-t border-[#40D49F]'>
         <div className='flex justify-between items-center'>
             <p className='font-Kumbh'>Section 1</p>
             <div className='flex items-center gap-[37px]'>
