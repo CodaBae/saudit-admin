@@ -80,6 +80,8 @@ import Section from './components/Section';
 import Choice from './components/Choice';
 import SubSection from './components/SubSection';
 import SectionB from './components/SectionB';
+import Tips from './components/Tips';
+import Text from './components/Text';
 
 const QuestionType = {
   BEGIN: "Let's Begin",
@@ -90,10 +92,14 @@ const QuestionType = {
 const Questions = () => {
   const [type, setType] = useState(QuestionType.CREATE);
   const [showChoice, setShowChoice] = useState(false);
+  const [showTips, setShowTips] = useState(false);
+  const [showTexts, setShowTexts] = useState(false);
   const [sections, setSections] = useState([]);
   const [sectionsB, setSectionsB] = useState([]);
   const [subSections, setSubSections] = useState([]);
   const [choices, setChoices] = useState([]);
+  const [texts, setTexts] = useState([]);
+  const [tips, setTips] = useState([]);
   const [show, setShow] = useState(false);
 
   const toggleShow = () => {
@@ -121,6 +127,14 @@ const Questions = () => {
     setChoices([...choices, { id: choices.length + 1 }]);
   };
 
+  const addTips = () => {
+    setTips([...tips, { id: tips.length + 1 }]);
+  };
+
+  const addTexts = () => {
+    setTexts([...texts, { id: texts.length + 1 }]);
+  };
+
   const handleDeleteSection = (sectionId) => {
     setSections(sections.filter(section => section.id !== sectionId));
   };
@@ -135,11 +149,29 @@ const Questions = () => {
 
   const handleDeleteChoice = (choiceId) => {
     setChoices(choices.filter(choice => choice.id !== choiceId));
-  }
+  };
+
+  const handleDeleteTips = (tipsId) => {
+    setTips(tips.filter(tip => tip.id !== tipsId));
+  };
+
+  const handleDeleteTexts = (textsId) => {
+    setTexts(texts.filter(text => text.id !== textsId));
+  };
 
   const choiceButton = () => {
     setShowChoice(true); 
     addChoice();
+  }
+
+  const tipsButton = () => {
+    setShowTips(true); 
+    addTips();
+  }
+
+  const textsButton = () => {
+    setShowTexts(true); 
+    addTexts();
   }
 
   const handleShowSection = () => {
@@ -164,8 +196,10 @@ const Questions = () => {
 
       {type === QuestionType.FILL_FORM &&  sections.map(section => <Section key={section.id} sectionId={section.id} onDelete={handleDeleteSection} setType={setType} />) }
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}
-      {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)}
+      {/* {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)} */}
       {showChoice && choices.map(choice => <Choice key={choice.id} choiceId={choice.id} onDelete={handleDeleteChoice} setShowChoice={setShowChoice} />)}
+      {showTips && tips.map(tip => <Tips key={tip.id} tipsId={tip.id} onDelete={handleDeleteTips} setShowTips={setShowTips} />)}
+      {showTexts && texts.map(text => <Text key={text.id} textsId={text.id} onDelete={handleDeleteTexts} setShowTexts={setShowTexts} />)}
 
       <div className={`${type === QuestionType.BEGIN || show ? "flex items-center gap-2 mt-[89px]  animate__animated animate__fadeInUp" :  "hidden" }`}>
         <button onClick={() => {type === QuestionType.BEGIN ? setType(QuestionType.CREATE) : setShow(false)}} className="w-[66px] h-[62px] bg-[#00BA78] flex justify-center rounded-lg items-center">
@@ -179,19 +213,19 @@ const Questions = () => {
         />
         
         <ButtonWithIcon 
-            onClick={() => {subSections?.length > 0 ? choiceButton() : null}} 
+            onClick={() => {sections?.length > 0 ? choiceButton() : null}} 
             icon={<div className="w-[20px] h-[20px] rounded-full flex justify-center items-center border border-[#288766]"><div className="bg-[#00BA78] rounded-full w-[14px] h-[14px]"></div></div>} 
             label="Choice" 
         />
        
         <ButtonWithIcon 
-            onClick={() => {}} 
+            onClick={() => {sections?.length > 0 ? textsButton() : null}} 
             icon={<div className="w-[19px] h-[19px] rounded flex justify-center items-center border border-[#288766]"><p className="text-[#00BA78] font-Kumbh text-[10px]">T</p></div>}
             label="Text" 
         />
 
         <ButtonWithIcon 
-            onClick={() => {}} 
+            onClick={() => {sections?.length > 0 ? tipsButton() : null}} 
             icon={Idea} 
             label="Tips" 
         />
