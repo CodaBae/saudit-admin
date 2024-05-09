@@ -3,10 +3,13 @@ import { GoPlus } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
 import { Switch } from 'antd';
 
+import ModalPop from '../../../components/modalPop';
 
 import Copy from "../../../assets/svg/copy.svg"
 import Bin from "../../../assets/svg/bin.svg"
 import Check from "../../../assets/svg/check.svg"
+import Plus from "../../../assets/png/plus_icon.png"
+import UploadEvidence from './UploadEvidence';
 
 
 const Choice = ({ setShowChoice, choiceId, onDelete }) => {
@@ -17,6 +20,7 @@ const Choice = ({ setShowChoice, choiceId, onDelete }) => {
   const [showTip, setShowTip] = useState(false)
   const [addSubQsn, setAddSubQsn] = useState([])
   const [addNewOption, setAddNewOption] = useState([{ id: 1, subQuestions: [] }]);
+  const [showModal, setShowModal] = useState(false)
 
   const handleTitleChange = (e) => {
       setTitle(e.target.value)
@@ -229,12 +233,16 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                 <img src={Check} alt='check' />
                 <input
                   type='text'
-                  className='w-[827px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[22px]'
+                  className='w-[745px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[22px]'
                   placeholder={`Option ${index + 1}`}
                   value={item.optionText}
                   onChange={(e) => handleOptionChange(item.id, e)}
                 />
-                <button className='bg-[#00BA78] flex items-center gap-1 w-[50px] h-[55px] p-2' onClick={() => setShowTip(true)}>
+                <button className='border border-[#000] rounded-sm flex items-center gap-1 w-[62px] h-[50px] p-2' onClick={() => setShowModal(true)}>
+                  <img src={Plus} className="text-[#000] w-[11px] h-[11px]"/>
+                  <p className='text-[#000] font-medium text-sm font-Kumbh'>Evd</p>
+                </button>
+                <button className='bg-[#00BA78] flex items-center gap-1 w-[62px] h-[50px] rounded-sm p-2' onClick={() => setShowTip(true)}>
                   <FaPlus className="text-[#fff] w-[11px] h-[11px] font-Kumbh"/>
                   <p className='text-[#fff]'>Tip</p>
                 </button>
@@ -287,8 +295,11 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
             <p className='text-[#000] font-Kumbh font-medium text-[14px]'>Evidence</p>
             <Switch size="small"  onChange={onChange}/>
           </div>
-
         </div>
+
+        <ModalPop isOpen={showModal}>
+          <UploadEvidence handleClose={() => setShowModal(false)} />
+        </ModalPop>
       </div>
   )
 }

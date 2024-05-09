@@ -198,8 +198,8 @@ const Questions = () => {
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}
       {/* {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)} */}
       {showChoice && choices.map(choice => <Choice key={choice.id} choiceId={choice.id} onDelete={handleDeleteChoice} setShowChoice={setShowChoice} />)}
+      {showTexts && texts.map(text => <Text key={text.id} textId={text.id} onDelete={handleDeleteTexts} setShowTexts={setShowTexts} />)}
       {showTips && tips.map(tip => <Tips key={tip.id} tipsId={tip.id} onDelete={handleDeleteTips} setShowTips={setShowTips} />)}
-      {showTexts && texts.map(text => <Text key={text.id} textsId={text.id} onDelete={handleDeleteTexts} setShowTexts={setShowTexts} />)}
 
       <div className={`${type === QuestionType.BEGIN || show ? "flex items-center gap-2 mt-[89px]  animate__animated animate__fadeInUp" :  "hidden" }`}>
         <button onClick={() => {type === QuestionType.BEGIN ? setType(QuestionType.CREATE) : setShow(false)}} className="w-[66px] h-[62px] bg-[#00BA78] flex justify-center rounded-lg items-center">
