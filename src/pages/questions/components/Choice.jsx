@@ -34,6 +34,13 @@ const Choice = ({ setShowChoice, choiceId, onDelete }) => {
     setTipChange(e.target.value)
   }
 
+  const eviTitle = localStorage.getItem("title")
+  console.log(eviTitle, "eviTitle")
+
+  const eviWord = localStorage.getItem("word")
+  console.log(eviWord, "eviTitle")
+  
+
   // const handleSubQuestionChange = (e) => {
   //   setSubQuestionChange(e.target.value)
   // }
@@ -249,6 +256,20 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                 {/* Additional buttons and inputs for tips and sub-questions */}
               </div>
               {
+                eviTitle && eviWord &&
+                  <div className='flex justify-end mt-[20px] mr-8'>
+                    <div className='flex gap-[44px] items-center'>
+                      <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+
+                      </div>
+                      <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                          <p className='font-Kumbh font-semibold text-xs'>{`${eviTitle}:`} <span className='font-normal'>{eviWord}</span></p>
+                      </div>
+
+                    </div>
+                  </div>
+              }
+              {
                 showTip &&
                   <div className='mt-[24px] pl-[160px]'>
                     <textarea
@@ -292,8 +313,8 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
           </div>
 
           <div className='flex items-center gap-2'>
-            <p className='text-[#000] font-Kumbh font-medium text-[14px]'>Evidence</p>
-            <Switch size="small"  onChange={onChange}/>
+            {/* <p className='text-[#000] font-Kumbh font-medium text-[14px]'>Evidence</p>
+            <Switch size="small"  onChange={onChange}/> */}
           </div>
         </div>
 
