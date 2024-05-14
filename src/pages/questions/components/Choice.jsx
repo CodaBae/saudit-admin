@@ -39,7 +39,9 @@ const Choice = ({ setShowChoice, choiceId, onDelete }) => {
 
   const eviWord = localStorage.getItem("word")
   console.log(eviWord, "eviTitle")
-  
+
+  const eviQuestion = localStorage.getItem("question")
+  console.log(eviQuestion, "eviTitle")
 
   // const handleSubQuestionChange = (e) => {
   //   setSubQuestionChange(e.target.value)
@@ -258,12 +260,17 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
               {
                 eviTitle && eviWord &&
                   <div className='flex justify-end mt-[20px] mr-8'>
-                    <div className='flex gap-[44px] items-center'>
+                    <div className='flex gap-[24px] items-center'>
                       <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
 
                       </div>
+                      <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                        <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${eviWord}`}</span></p>
+                     
+
+                      </div>
                       <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                          <p className='font-Kumbh font-semibold text-xs'>{`${eviTitle}:`} <span className='font-normal'>{eviWord}</span></p>
+                          <p className='font-Kumbh font-semibold text-xs'>{`${eviTitle}:`} <span className='font-normal'>{eviQuestion}</span></p>
                       </div>
 
                     </div>

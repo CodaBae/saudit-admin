@@ -54,12 +54,12 @@ const UploadEvidence = ({ handleClose }) => {
         
 
   return (
-    <div className='w-[90%] h-[80%] bg-[#fff] flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
+    <div className='w-[90%] h-[85%] bg-[#fff] flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
         <div className='flex gap-auto w-full justify-between'>
             <div className='w-[200px]'></div>
             <div className='flex flex-col items-center gap-1'>
                 <p className='font-Kumbh text-[22px] font-semibold'>Upload evidence</p>
-                <p className='font-hanken'>You can upload <span className='text-[#36A73A] font-semibold'>multiple evidences</span> to one option</p>
+                <p className='font-hanken'>You can upload <span className='text-[#36A73A] font-semibold'>multiple evidence</span> to one option</p>
             </div>
             <button className='w-[144px] bg-[#000] p-2 rounded-lg h-[44px] mr-10' onClick={() => UploadData()}>
                 <p className='text-[#fff] font-hanken text-sm font-medium'>Save & Continue</p>
@@ -87,7 +87,7 @@ const UploadEvidence = ({ handleClose }) => {
 
 
             <div className='flex flex-col mt-2.5 gap-1'>
-                <p className='font-hanken text-sm text-[#000]'>Type suggested evidence for this question</p>
+                <p className='font-hanken text-sm text-[#000]'>Type suggested evidence's for this question</p>
                 <textarea
                     className='rounded-lg w-[494px] h-[101px] text-[12px] text-[#000] placeholder-[#D6D6D6] border border-[#8B8B8B] outline-none p-4'
                     placeholder='ISO 1000'
