@@ -12,26 +12,23 @@ import Plus from "../../../assets/png/plus_icon.png"
 import UploadEvidence from './UploadEvidence';
 
 
-const Choice = ({ setShowChoice, choiceId, onDelete }) => {
-  const [title, setTitle] = useState("")
+const Choice = ({ setShowChoice, choiceId, onDelete, addNewOption, setAddNewOption, optionTitle, setOptionTitle, optionTipChange, setOptionTipChange, points, setPoints  }) => {
   const [option, setOption] = useState("")
-  const [tipChange, setTipChange] = useState("")
   const [subQuestionChange, setSubQuestionChange] = useState("")
   const [showTip, setShowTip] = useState(false)
   const [addSubQsn, setAddSubQsn] = useState([])
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, subQuestions: [] }]);
   const [showModal, setShowModal] = useState(false)
 
   const handleTitleChange = (e) => {
-      setTitle(e.target.value)
+      setOptionTitle(e.target.value)
   }
 
-  // const handleOptionChange = (e) => {
-  //   setOption(e.target.value)
-  // }
+  const handlePointsChange = (e) => {
+    setPoints(e.target.value)
+  }
 
   const handleTipChange = (e) => {
-    setTipChange(e.target.value)
+    setOptionTipChange(e.target.value)
   }
 
   const eviTitle = localStorage.getItem("title")
@@ -231,9 +228,11 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
             <p className='font-medium font-Kumbh'>1.</p>
             <input
                 type='text'
+                name='optionTitle'
+                value={optionTitle}
                 className='w-[931px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[22px]'
                 placeholder='Question'
-                onChange={handleTitleChange}
+                onChange={(e) => handleTitleChange(e)}
               />
           </div>
           {addNewOption.map((item, index) => (
@@ -283,6 +282,7 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                       className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
                       placeholder='Type tip...'
                       rows="5"
+                      value={optionTipChange}
                       onChange={(e) => handleTipChange(e)}
                     >
                     </textarea>
@@ -299,10 +299,10 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                   />
                 </div>
               ))}
-              <div onClick={() => addSubQsnFunc(item.id)} className='flex items-center mt-1.5  pl-12'>
+              {/* <div onClick={() => addSubQsnFunc(item.id)} className='flex items-center mt-1.5  pl-12'>
                 <GoPlus className="text-[#474747] text-[13px]  font-medium font-Kumbh"/>
                 <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Question</p>
-              </div>
+              </div> */}
             </div>
           ))}
           <div onClick={addOption} className='flex items-center justify-end mt-1 mr-8 mb-[100px]'>
@@ -315,7 +315,14 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
           <div className='flex items-center gap-2'>
             <p className='font-medium text-[#000000] font-Kumbh text-[14px]'>Points:</p>
             <div className='bg-[#fff] w-[34px] h-[26px] flex items- justify-center'>
-              <p className='font-Kumbh text-[#000]'>0</p>
+              <input 
+                className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
+                placeholder='0'
+                onChange={(e) => handlePointsChange(e)}
+                name='point'
+                type='number'
+                value={points}
+              />
             </div>
           </div>
 

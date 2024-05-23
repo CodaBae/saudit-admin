@@ -19,9 +19,9 @@ const Sidebar = () => {
             <p className='text-[11px] font-hanken'>Home</p>
         </div>
 
-        <div className='flex flex-col cursor-pointer items-center'>
+        <div className='flex flex-col cursor-pointer items-center' onClick={() => navigate("/viewQuestions")}>
             <img src={User} alt='User' className='w-[18px] h-[20px]' />
-            <p className='text-[11px] font-hanken'>User</p>
+            <p className='text-[11px] font-hanken'>Questions</p>
         </div>
 
         <div className='flex flex-col cursor-pointer items-center'>

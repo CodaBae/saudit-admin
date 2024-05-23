@@ -82,12 +82,68 @@ import SubSection from './components/SubSection';
 import SectionB from './components/SectionB';
 import Tips from './components/Tips';
 import Text from './components/Text';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const QuestionType = {
   BEGIN: "Let's Begin",
   CREATE: "Create Question",
   FILL_FORM: "Fill the form"
 };
+
+const sector = [
+  { name: 'Sector' },
+  { name: 'Transport' },
+]
+
+const subSector = [
+  { name: "Sub Sector"},
+  { name: 'Railway' },
+  { name: 'Marine' },
+  { name: 'Air' },
+]
+
+const sectorType = [
+  { name: "Type"},
+  { name: 'Light Rail' },
+  { name: 'Heavy Rail' },
+  { name: 'Metro' },
+]
+
+const industryFunction = [
+  { name: "Industry function"},
+  { name: 'Railway Operator' },
+]
+
+const userFunction = [
+  { name: "User Function"},
+  { name: "Executive"},
+  { name: 'Senior Management' },
+  { name: 'Company admin' },
+  { name: 'Staff Contractor' },
+]
+
+const assessment = [
+  { name: "Select assessment category"},
+  { name: "Air Emmissions"},
+  { name: "Waste"},
+  { name: "Climate Change"},
+  { name: "Social Sustainability"},
+  { name: "Environmental Sustainability"},
+  { name: "Culture"},
+  { name: "Sustainable Communities"},
+  { name: "Health & Well-Being"},
+  { name: "Investment for Sustainability"},
+  { name: "Education & Stakeholders"},
+  { name: "Biodiversity"},
+  { name: "Governace"},
+
+]
+
+const compliance = [
+  { name: "Select compliance category"},
+  { name: "SDG"},
+]
 
 const Questions = () => {
   const [type, setType] = useState(QuestionType.CREATE);
@@ -101,6 +157,24 @@ const Questions = () => {
   const [texts, setTexts] = useState([]);
   const [tips, setTips] = useState([]);
   const [show, setShow] = useState(false);
+
+  //Sections Forms
+  const [sectorSelected, setSectorSelected] = useState(sector[0])
+  const [subSectorSelected, setSubSectorSelected] = useState(subSector[0])
+  const [typeSelected, setTypeSelected] = useState(sectorType[0])
+  const [industryFunctionSelected, setIndustryFunctionSelected] = useState(industryFunction[0])
+  const [userFunctionSelected, setUserFunctionSelected] = useState(userFunction[0])
+  const [assessmentSelected, setAssessmentSelected] = useState(assessment[0])
+  const [complianceSelected, setComplianceSelected] = useState(compliance[0])
+
+  // Choice Forms
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, subQuestions: [] }]);
+  const [optionTitle, setOptionTitle] = useState("")
+  const [optionTipChange, setOptionTipChange] = useState("")
+  const [points, setPoints] = useState(0)
+
+
+
 
   const toggleShow = () => {
     setShow(prev => !prev);
@@ -174,6 +248,60 @@ const Questions = () => {
     addTexts();
   }
 
+
+  const evidenceTitle = localStorage.getItem("title")
+  const evidenceQuestion = localStorage.getItem("question")
+  const keyWord =  localStorage.getItem("word")
+
+
+  const submitForm = async () => {
+      const data = {
+        sector: sectorSelected?.name, 
+        subSector: subSectorSelected?.name,  
+        type: typeSelected?.name,
+        industryFuntion: industryFunctionSelected?.name,  
+        userFuntion: userFunctionSelected?.name,  
+        selectAssessmentCat: assessmentSelected?.name,  
+        selectComplianceCat: complianceSelected?.name,  
+        text: optionTitle,
+        tips: optionTipChange,
+        point: points,
+        options: [
+          {
+            text: `${addNewOption[0]?.optionText}`,
+            evd: "No evidence",
+            evdText:`${evidenceQuestion}`,
+            tips: `${keyWord}`
+          },
+        ]
+      }
+      await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
+        headers: {
+          "Content-Type": 'application/json',
+        }
+      })
+      .then((res) => {
+        console.log(res, "res")
+        toast(`${res?.data?.message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+        })
+        handleDeleteSection()
+      })
+      .catch((err) => {
+        console.log(err, 'err')
+        toast(`${err?.response?.data?.message}`, {
+          position: "top-right",
+          autoClose: 5000,
+          closeOnClick: true,
+        })
+        handleDeleteSection()
+      })
+
+  }
+
+
   const handleShowSection = () => {
     setType(QuestionType.FILL_FORM); 
     if(sections.length === 1) {
@@ -181,6 +309,13 @@ const Questions = () => {
     } else {
       addSection();
       // addSectionB();
+    }
+  }
+
+  const handleSubmitForm = () => {
+   if (sections.length === 1 && optionTitle) {
+      submitForm()
+      addSection();
     }
   }
 
@@ -194,10 +329,54 @@ const Questions = () => {
         <p className={type === QuestionType.BEGIN ? "text-[#A1A1A1] font-Kumbh text-[17px]" : "hidden"}>Start with a section</p>
       </div>
 
-      {type === QuestionType.FILL_FORM &&  sections.map(section => <Section key={section.id} sectionId={section.id} onDelete={handleDeleteSection} setType={setType} />) }
+      {type === QuestionType.FILL_FORM &&  
+        sections.map(section => <Section 
+          key={section.id} 
+          sectionId={section.id} 
+          onDelete={handleDeleteSection} 
+          setType={setType} 
+
+          //States
+          sectorSelected={sectorSelected}
+          setSectorSelected={setSectorSelected}
+          subSectorSelected={subSectorSelected}
+          setSubSectorSelected={setSubSectorSelected}
+          typeSelected={typeSelected}
+          setTypeSelected={setTypeSelected}
+          industryFunctionSelected={industryFunctionSelected}
+          setIndustryFunctionSelected={setIndustryFunctionSelected}
+          userFunctionSelected={userFunctionSelected}
+          setUserFunctionSelected={setUserFunctionSelected}
+          assessmentSelected={assessmentSelected}
+          setAssessmentSelected={setAssessmentSelected}
+          complianceSelected={complianceSelected}
+          setComplianceSelected={setComplianceSelected}
+          sector={sector}
+          subSector={subSector}
+          sectorType={sectorType}
+          industryFunction={industryFunction}
+          userFunction={userFunction}
+          assessment={assessment}
+          compliance={compliance}
+        />) 
+      }
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}
       {/* {subSections.map(subSection => <SubSection  key={subSection.id} subSectionId={subSection.id} onDelete={handleDeleteSubSection}   />)} */}
-      {showChoice && choices.map(choice => <Choice key={choice.id} choiceId={choice.id} onDelete={handleDeleteChoice} setShowChoice={setShowChoice} />)}
+      {showChoice && choices.map(choice => <Choice 
+        key={choice.id} 
+        choiceId={choice.id} 
+        onDelete={handleDeleteChoice} 
+        setShowChoice={setShowChoice} 
+        addNewOption={addNewOption}
+        setAddNewOption={setAddNewOption}
+        optionTitle={optionTitle} 
+        setOptionTitle={setOptionTitle} 
+        optionTipChange={optionTipChange} 
+        setOptionTipChange={setOptionTipChange}
+        points={points}
+        setPoints={setPoints}
+      />)
+      }
       {showTexts && texts.map(text => <Text key={text.id} textId={text.id} onDelete={handleDeleteTexts} setShowTexts={setShowTexts} />)}
       {/* {showTips && tips.map(tip => <Tips key={tip.id} tipsId={tip.id} onDelete={handleDeleteTips} setShowTips={setShowTips} />)} */}
 
@@ -207,7 +386,7 @@ const Questions = () => {
         </button>
 
         <ButtonWithIcon 
-            onClick={() => handleShowSection()} 
+            onClick={() => {handleShowSection(); handleSubmitForm()}}
             icon={Hamburger} 
             label="Section" 
         />

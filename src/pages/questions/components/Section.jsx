@@ -5,69 +5,37 @@ import { Listbox, Transition } from '@headlessui/react';
 import Copy from "../../../assets/svg/copy.svg"
 import Bin from "../../../assets/svg/bin.svg"
 
-const sector = [
-    { name: 'Sector' },
-    { name: 'Transport' },
-  ]
 
-const subSector = [
-    { name: "Sub Sector"},
-    { name: 'Railway' },
-    { name: 'Marine' },
-    { name: 'Air' },
-  ]
 
-  const type = [
-    { name: "Type"},
-    { name: 'Light Rail' },
-    { name: 'Heavy Rail' },
-    { name: 'Metro' },
-  ]
+const Section = ({ 
+    setType, 
+    sectionId, 
+    onDelete,
 
-  const industryFunction = [
-    { name: "Industry function"},
-    { name: 'Railway Operator' },
-  ]
-
-  const userFunction = [
-    { name: "User Function"},
-    { name: "Executive"},
-    { name: 'Senior Management' },
-    { name: 'Company admin' },
-    { name: 'Staff Contractor' },
-  ]
-
-  const assessment = [
-    { name: "Select assessment category"},
-    { name: "Air Emmissions"},
-    { name: "Waste"},
-    { name: "Climate Change"},
-    { name: "Social Sustainability"},
-    { name: "Environmental Sustainability"},
-    { name: "Culture"},
-    { name: "Sustainable Communities"},
-    { name: "Health & Well-Being"},
-    { name: "Investment for Sustainability"},
-    { name: "Education & Stakeholders"},
-    { name: "Biodiversity"},
-    { name: "Governace"},
-
-  ]
-
-  const compliance = [
-    { name: "Select compliance category"},
-    { name: "SDG"},
-  ]
-
-const Section = ({ setType, sectionId, onDelete }) => {
+    sectorSelected,
+    setSectorSelected,
+    subSectorSelected,
+    setSubSectorSelected,
+    typeSelected,
+    setTypeSelected,
+    industryFunctionSelected,
+    setIndustryFunctionSelected,
+    userFunctionSelected,
+    setUserFunctionSelected,
+    assessmentSelected,
+    setAssessmentSelected,
+    complianceSelected,
+    setComplianceSelected,
+    sector,
+    subSector,
+    sectorType,
+    industryFunction,
+    userFunction,
+    assessment,
+    compliance
+}) => {
     const [title, setTitle] = useState("")
-    const [sectorSelected, setSectorSelected] = useState(sector[0])
-    const [subSectorSelected, setSubSectorSelected] = useState(subSector[0])
-    const [typeSelected, setTypeSelected] = useState(type[0])
-    const [industryFunctionSelected, setIndustryFunctionSelected] = useState(industryFunction[0])
-    const [userFunctionSelected, setUserFunctionSelected] = useState(userFunction[0])
-    const [assessmentSelected, setAssessmentSelected] = useState(assessment[0])
-    const [complianceSelected, setComplianceSelected] = useState(compliance[0])
+    
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value)
@@ -75,6 +43,7 @@ const Section = ({ setType, sectionId, onDelete }) => {
     const handleDelete = () => {
         onDelete(sectionId);
     };
+
   return (
     <div className='w-[1065px] mt-[33px] h-auto p-10  animate__animated animate__fadeInUp flex flex-col bg-[#F4F4F4] border border-x-0 border-b-0 border-t border-[#40D49F]'>
         <div className='flex justify-between items-center'>
@@ -86,7 +55,7 @@ const Section = ({ setType, sectionId, onDelete }) => {
         </div>
         <div className='flex flex-col gap-4'>
 
-            <Listbox value={sectorSelected} onChange={sectorSelected}>
+            <Listbox value={sectorSelected} onChange={setSectorSelected}>
                 <div className="relative">
                     <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
                         <span className="block truncate font-medium text-[22px] font-Kumbh">{sectorSelected.name}</span>
@@ -198,7 +167,7 @@ const Section = ({ setType, sectionId, onDelete }) => {
                             leaveTo="opacity-0"
                         >
                             <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                                {type.map((item, index) => (
+                                {sectorType.map((item, index) => (
                                     <Listbox.Option
                                         key={index}
                                         className={({ active }) =>
