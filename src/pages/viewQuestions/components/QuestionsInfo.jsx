@@ -93,7 +93,7 @@ const QuestionsInfo = ({ }) => {
       point: points,
       options: addNewOption.map(option => ({
         text: option.optionText,
-        point: option.optionPoints,
+        point: Number(option.optionPoints),
         evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
         evdText: option.optionEviQuestion,
         tips: option.optionKeyword,
@@ -282,7 +282,7 @@ const addOption = () => {
                                     onChange={(e) => handlePointsChange(e)}
                                     name='point'
                                     type='number'
-                                    value={option?.point}
+                                    value={option?.points}
                                 />
                                 </div>
                             </div>

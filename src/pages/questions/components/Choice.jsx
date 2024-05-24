@@ -71,7 +71,7 @@ const handleOptionChange = (optionId, e) => {
 
 const handlePointChange = (optionId, e) => {
   const newOptions = addNewOption.map(option =>
-    option.id === optionId ? { ...option, optionPoint: e.target.value } : option
+    option.id === optionId ? { ...option, optionPoints: e.target.value } : option
   );
   setAddNewOption(newOptions);
 };
@@ -85,7 +85,7 @@ const handleTipChange = (optionId, e) => {
 
 const addOption = () => {
     const newOptionId = addNewOption.length + 1;
-    const newOption = { id: newOptionId, optionText: '', optionPoint: "", optionTip: "" };
+    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTip: "" };
     setAddNewOption([...addNewOption, newOption]);
 };
 
@@ -174,7 +174,7 @@ const handlePointsChange = (e) => {
                     onChange={(e) => handlePointChange(item.id, e)}
                     name='point'
                     type='number'
-                    value={item?.optionPoint}
+                    value={item?.optionPoints}
                   />
                 </div>
               </div>

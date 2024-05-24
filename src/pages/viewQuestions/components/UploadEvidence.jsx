@@ -73,7 +73,7 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
         };
 
   return (
-    <div className='w-[90%] h-[85%] bg-[#fff] oveflow-auto flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
+    <div style={{ overflow:"scroll" }}className='w-[90%] h-[90vh] bg-[#fff] flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
         <div className='flex gap-auto w-full justify-between'>
             <div className='w-[200px]'></div>
             <div className='flex flex-col items-center gap-1'>
