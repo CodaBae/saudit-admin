@@ -22,7 +22,7 @@ const QuestionsInfo = ({ }) => {
   const [showTip, setShowTip] = useState(false)
   const [addSubQsn, setAddSubQsn] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "" }]);
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
   const [optionTipChange, setOptionTipChange] = useState("")
   const [points, setPoints] = useState(0)
@@ -56,7 +56,7 @@ const QuestionsInfo = ({ }) => {
   console.log(eviQuestion, "eviTitle")
 
   const submitNextQuestion = (option) =>  async () => { 
-    console.log(option)
+    console.log(option, "same")
     const data= {
         nextQuestionId: getQuestionId,
     }
@@ -94,7 +94,7 @@ const QuestionsInfo = ({ }) => {
       options: addNewOption.map(option => ({
         text: option.optionText,
         point: option.optionPoints,
-        evd: "No evidence",
+        evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
         evdText: option.optionEviQuestion,
         tips: option.optionKeyword,
       }))
@@ -161,30 +161,30 @@ const addOption = () => {
     setAddNewOption([...addNewOption, newOption]);
 };
 
-const addSubQsnFunc = (optionId) => {
-  const updatedOptions = addNewOption.map(option => {
-    if (option.id === optionId) {
-      const newSubQuestionId = option.subQuestions.length + 1;
-      const newSubQuestion = { id: newSubQuestionId, subQuestionText: '' };
-      return { ...option, subQuestions: [...option.subQuestions, newSubQuestion] };
-    }
-    return option;
-  });
-  setAddNewOption(updatedOptions);
-};
+// const addSubQsnFunc = (optionId) => {
+//   const updatedOptions = addNewOption.map(option => {
+//     if (option.id === optionId) {
+//       const newSubQuestionId = option.subQuestions.length + 1;
+//       const newSubQuestion = { id: newSubQuestionId, subQuestionText: '' };
+//       return { ...option, subQuestions: [...option.subQuestions, newSubQuestion] };
+//     }
+//     return option;
+//   });
+//   setAddNewOption(updatedOptions);
+// };
 
-const handleSubQuestionChange = (optionId, subQuestionId, e) => {
-  const updatedOptions = addNewOption.map(option => {
-    if (option.id === optionId) {
-      const updatedSubQuestions = option.subQuestions.map(subQuestion =>
-        subQuestion.id === subQuestionId ? { ...subQuestion, subQuestionText: e.target.value } : subQuestion
-      );
-      return { ...option, subQuestions: updatedSubQuestions };
-    }
-    return option;
-  });
-  setAddNewOption(updatedOptions);
-};
+// const handleSubQuestionChange = (optionId, subQuestionId, e) => {
+//   const updatedOptions = addNewOption.map(option => {
+//     if (option.id === optionId) {
+//       const updatedSubQuestions = option.subQuestions.map(subQuestion =>
+//         subQuestion.id === subQuestionId ? { ...subQuestion, subQuestionText: e.target.value } : subQuestion
+//       );
+//       return { ...option, subQuestions: updatedSubQuestions };
+//     }
+//     return option;
+//   });
+//   setAddNewOption(updatedOptions);
+// };
 
 // Find the option in the options array based on the optionIndex
   // setAddSubQsn([...addSubQsn, { id: addSubQsn.length + 1 }]);
@@ -221,7 +221,8 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                 console.log(option, 'option')
             
                 return (
-                    <div key={option._id}>
+                    <div key={option._id} className='flex flex-col'>
+                        <p className='font-hanken text-sm'>Option {index + 1}</p>
                         <div className='flex items-center gap-2 mt-4 pl-10'>
                             <img src={Check} alt='check' />
                             <input
@@ -245,13 +246,13 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                             option?.tips && 
                             <div className='flex justify-end mt-[20px] mr-8'>
                                 <div className='flex gap-[24px] items-center'>
-                                <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                <div className='w-[315px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
 
                                 </div>
-                                <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                     <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.tips}`}</span></p>
                                 </div>
-                                <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                <div className='w-[315px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                     <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{option?.text}</span></p>
                                 </div>
 
@@ -287,23 +288,25 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                             </div>
                         </div>
                         {showAddQuestion && addNewOption.map((item, index) => (
-                            <div key={item.id} className='flex mt-4 flex-col gap-4'>
+                            <div key={item.id} className='flex mt-4  pl-[160px] flex-col gap-4'>
+                              <p className='font-hanken text-lg font-medium text-[#000]'>Sub Questions</p>
                                 <div className='flex items-center gap-2 '>
                                     <p className='font-medium font-Kumbh'>1.</p>
                                     <input
                                         type='text'
                                         name='optionTitle'
                                         value={optionTitle}
-                                        className='w-[931px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-normal text-base'
+                                        className='w-[781px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-normal text-base'
                                         placeholder='Question'
                                         onChange={(e) => handleTitleChange(e)}
                                     />
                                 </div>
+                                <p className='font-hanken text-sm'>Option {index + 1}</p>
                                 <div className='flex items-center gap-2 mt-4 pl-10'>
                                     <img src={Check} alt='check' />
                                     <input
                                         type='text'
-                                        className='w-[745px] bg-[#fff] p-4 outline-none text-[#363636] h-[50px] font-hanken  font-normal text-[17px]'
+                                        className='w-[590px] bg-[#fff] p-4 outline-none text-[#363636] h-[50px] font-hanken  font-normal text-[17px]'
                                         placeholder={`Option ${index + 1}`}
                                         value={item.optionText}
                                         onChange={(e) => handleOptionChange(item.id, e)}
@@ -318,19 +321,34 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                                     </button>
                                     {/* Additional buttons and inputs for tips and sub-questions */}
                                 </div>
+                                <div className='flex justify-end mr-8 mt-3'>
+                                    <div className='flex items-center gap-2'>
+                                        <p className='font-medium text-[#000000] font-Kumbh text-[14px]'>Points:</p>
+                                        <div className='bg-[#fff] w-[80px] h-[26px] flex items- justify-center'>
+                                        <input 
+                                            className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
+                                            placeholder={option?.point || 0}
+                                            onChange={(e) => handlePointsChange(e)}
+                                            name='point'
+                                            type='number'
+                                            value={option?.point}
+                                        />
+                                        </div>
+                                    </div>
+                                </div>
                                 {
-                                    eviTitle && eviWord &&
+                                    item && item?.optionKeyword &&
                                     <div className='flex justify-end mt-[20px] mr-8'>
                                         <div className='flex gap-[24px] items-center'>
-                                        <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                        <div className='w-[215px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
 
                                         </div>
-                                        <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                        <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                             <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${item?.optionKeyword}`}</span></p>
                                         
 
                                         </div>
-                                        <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                        <div className='w-[215px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                             <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{item?.optionEviQuestion}</span></p>
                                         </div>
 
@@ -339,9 +357,9 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                                 }
                                 {
                                     showTip &&
-                                    <div className='mt-[24px] pl-[160px]'>
+                                    <div className='mt-[24px] pl-[110px]'>
                                         <textarea
-                                        className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
+                                        className='w-[692px] h-[83px] bg-[#fff] p-4 outline-none'
                                         placeholder='Type tip...'
                                         rows="5"
                                         value={optionTipChange}

@@ -182,16 +182,14 @@ const handlePointsChange = (e) => {
                 item?.optionKeyword &&
                   <div className='flex justify-end mt-[20px] mr-8'>
                     <div className='flex gap-[24px] items-center'>
-                      <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-
+                      <div className='w-[315px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                      <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${item?.optionImageName?.name}`}</span></p>
                       </div>
-                      <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                      <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                         <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${item?.optionKeyword}`}</span></p>
-                     
-
                       </div>
-                      <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                          <p className='font-Kumbh font-semibold text-xs'>{`Strategic Planning and Investment:`} <span className='font-normal'>{item?.optionEviQuestion}</span></p>
+                      <div className='w-[315px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                          <p className='font-Kumbh font-semibold text-xs'>Suggested Evidence: <span className='font-normal'>{item?.optionEviQuestion}</span></p>
                       </div>
 
                     </div>

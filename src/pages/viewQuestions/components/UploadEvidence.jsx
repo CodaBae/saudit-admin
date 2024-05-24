@@ -7,6 +7,7 @@ import UploadIcon from "../../../assets/png/upload_icon.png"
 const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
     const [evidenceQuestion, setEvidenceQuestion] = useState("")
     const [keyWord, setKeyWord] = useState("")
+    const [userImage, setUserImage] = useState(null);
 
     const handleEvidenceQuestion = (optionId, e) => {
         const newOptions = addNewOption.map(option =>
@@ -34,17 +35,18 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
         const props = {
             name: 'file',
             multiple: true,
-            action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+            // action:  'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
             onChange(info) {
                 const { status } = info.file;
-                if (status !== 'uploading') {
-                    console.log(info.file, info.fileList);
-                }
-                if (status === 'done') {
-                    message.success(`${info.file.name} file uploaded successfully.`);
-                } else if (status === 'error') {
-                    message.error(`${info.file.name} file upload failed.`);
-                }
+                // if (status !== 'uploading') {
+                //     console.log(info.file, info.fileList);
+                // }
+                // if (status === 'done') {
+                //     message.success(`${info.file.name} file uploaded successfully.`);
+                // } 
+                // else if (status === 'error') {
+                //     message.error(`${info.file.name} file upload failed.`);
+                // }
             },
             onDrop(e) {
                 console.log('Dropped files', e.dataTransfer.files);
@@ -65,6 +67,10 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
             handleClose()
         }
         
+        const handleFileChange = (event) => {
+            const selectedFile = event.target.files[0];
+            setUserImage(selectedFile)
+        };
 
   return (
     <div className='w-[90%] h-[85%] bg-[#fff] oveflow-auto flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
@@ -83,7 +89,7 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
                 <div className='w-[494px] h-[101px] rounded-lg p-[15px] bg-[#F7F8F8] mt-4'>
                     <div className='flex items-center  gap-1.5'>
                         <input type='radio' />
-                        <p className='font-hanken text-[#363636] font-medium'>Strategic Planning and Investment</p>
+                        <p className='font-hanken text-[#363636] font-medium'>{item?.optionText}</p>
                     </div>
                 </div>
 
@@ -91,12 +97,44 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
                     <div className='flex justify-end'>
                         <p className='font-hanken text-[#888B91] text-[11px]'>Maximum size 25MB</p>
                     </div>
-                    <Dragger {...props} style={{ background: "#fff" }}>
+                    <div className='flex flex-col lg:mx-auto  bg-transparent rounded-xl items-center lg:w-[504px] border-dashed border-[#D0D5DD] border px-6 py-[28px]  gap-[16px]'>
+                        <div className='p-[9px] w-full cursor-pointer flex justify-center gap-[16px] '>
+                            {  
+                                userImage?.name ? 
+                                    <div className='flex flex-col gap-1'>
+                                        <div className='flex items-center justify-between'>
+                                            <p className='text-[15px] font-hanken text-[#858585]'>{userImage?.name}</p>
+                                            <p className='text-[#000] text-[11px]'>Completed</p>
+                                        </div>
+                                        <div className='w-[266px] h-[5px] bg-[#51E38B] rounded-lg'></div>
+                                    </div> 
+                                    :
+                                    <div className='flex items-center gap-[16px]'>
+                                        <img src={UploadIcon} alt='upload' className='w-6 h-6' />
+                                        {/* <div className='flex flex-col'>
+                                            <p className='text-sm font-semibold font-inter '>
+                                                
+                                            </p>
+                                        </div> */}
+                                        <label htmlFor="fileInput" className='cursor-pointer flex  items-center text-[#000] text-sm '>
+                                            Drag and Drop <span className='text-[#475367] ml-1'>or choose file</span>
+                                            <input
+                                                type="file"
+                                                id="fileInput"
+                                                style={{ display: 'none' }}
+                                                onChange={handleFileChange}
+                                            />
+                                        </label>
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                    {/* <Dragger {...props} style={{ background: "#fff" }}>
                         <div className='flex items-center justify-center gap-[21px] h-[65px]'>
                             <img src={UploadIcon} alt='Upload Icon' className='w-[30px] h-[35px]' />
                             <p className="font-hanken text-[#000] text-[17px]">Drag and drop file or <span className='underline font-medium'>choose file</span></p>
                         </div>
-                    </Dragger>
+                    </Dragger> */}
                 </div>
 
 

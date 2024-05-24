@@ -96,7 +96,7 @@ const Questions = () => {
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
 
   // Choice Forms
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "" }]);
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
   const [optionTipChange, setOptionTipChange] = useState("")
   const [points, setPoints] = useState(0)
@@ -198,7 +198,7 @@ const Questions = () => {
         options: addNewOption.map(option => ({
           text: option.optionText,
           point: option.optionPoints,
-          evd: "No evidence",
+          evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
           evdText: option.optionEviQuestion,
           tips: option.optionKeyword,
         }))
@@ -328,7 +328,7 @@ const Questions = () => {
         <ButtonWithIcon 
             onClick={() => {handleShowSection(); handleSubmitForm()}}
             icon={Hamburger} 
-            label="Section" 
+            label={sections.length === 1 ? "Publish" : "Section"} 
         />
         
         <ButtonWithIcon 
@@ -350,6 +350,7 @@ const Questions = () => {
         /> */}
       </div>
 
+      
       <button onClick={() => {type === QuestionType.CREATE ? setType(QuestionType.BEGIN) : toggleShow()}} className={`${type === QuestionType.BEGIN ? "hidden" : "w-[168px] h-[62px] mt-[89px] bg-[#00BA78] flex rounded-lg items-center gap-2 justify-center p-2 mb-5"}`}>
         <FaPlus className="text-[#fff]" />
         <p className="text-[#fff]">Add New</p>
