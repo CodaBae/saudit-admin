@@ -166,7 +166,7 @@ const handlePointsChange = (e) => {
               </div>
               <div className='flex items-center justify-end mr-8 mt-5 gap-2'>
                 <p className='font-medium text-[#000000] font-Kumbh text-[14px]'>Points:</p>
-                <div className='bg-[#fff] w-[40px] h-[30px] p-2 flex items- justify-center'>
+                <div className='bg-[#fff] w-[80px] h-[30px] p-2 flex items- justify-center'>
                   <input 
                     className='font-Kumbh w-full outline-none p-1 text-[#000] bg-transparent'
                     placeholder='0'

@@ -46,6 +46,9 @@ const ViewQuestions = () => {
                 <table className='w-full'>
                     <tr className='h-[32px]  border-0' >
                         <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
+                            Number
+                        </th>
+                        <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
                             Sector
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
@@ -64,6 +67,9 @@ const ViewQuestions = () => {
                     {allQuestions?.map((item, index) => (
                         <tr key={index} className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer' onClick={() => navigate(`/viewQuestions/${item?._id}`, { state: item})}>
                             <td className='h-[55px] flex items-center gap-3 '>
+                                <p className='text-sm font-kumbh'>Question {index + 1}</p> 
+                            </td>
+                            <td className='h-[55px] px-4 '>
                                 <p className='text-sm font-kumbh'>{item?.sector}</p> 
                             </td>
                             <td className='h-[55px] px-4'>

@@ -274,7 +274,7 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                         <div className='flex justify-end mr-8 mt-3'>
                             <div className='flex items-center gap-2'>
                                 <p className='font-medium text-[#000000] font-Kumbh text-[14px]'>Points:</p>
-                                <div className='bg-[#fff] w-[34px] h-[26px] flex items- justify-center'>
+                                <div className='bg-[#fff] w-[80px] h-[26px] flex items- justify-center'>
                                 <input 
                                     className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
                                     placeholder={option?.point || 0}
