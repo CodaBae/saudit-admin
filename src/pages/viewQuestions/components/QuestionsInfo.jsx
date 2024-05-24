@@ -22,7 +22,7 @@ const QuestionsInfo = ({ }) => {
   const [showTip, setShowTip] = useState(false)
   const [addSubQsn, setAddSubQsn] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, subQuestions: [] }]);
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
   const [optionTipChange, setOptionTipChange] = useState("")
   const [points, setPoints] = useState(0)
@@ -91,14 +91,13 @@ const QuestionsInfo = ({ }) => {
       text: optionTitle,
       tips: optionTipChange,
       point: points,
-      options: [
-        {
-          text: `${addNewOption[0]?.optionText}`,
-          evd: "No evidence",
-          evdText:`${eviQuestion}`,
-          tips: `${eviWord}`
-        },
-      ]
+      options: addNewOption.map(option => ({
+        text: option.optionText,
+        point: option.optionPoints,
+        evd: "No evidence",
+        evdText: option.optionEviQuestion,
+        tips: option.optionKeyword,
+      }))
     }
     await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
       headers: {
@@ -145,30 +144,6 @@ const QuestionsInfo = ({ }) => {
 
 //   const handleDelete = () => {
 //     onDelete(choiceId);
-// };
-
-
-
-// const addSubQsnFunc = (optionIndex) => {
-//   console.log(optionIndex, "fasel")
-//    const optionToUpdate = addNewOption.find((_, index) => index === optionIndex);
-//   if (optionToUpdate) {
-//     // Calculate the ID for the new sub-question
-//     const newSubQuestionId = optionToUpdate.subQuestions.length + 1;
-//     // Create a new sub-question object
-//     const newSubQuestion = { id: newSubQuestionId };
-//     // Update the subQuestions array of the selected option to include the new sub-question
-//     const updatedOption = {
-//       ...optionToUpdate,
-//       subQuestions: [...optionToUpdate.subQuestions, newSubQuestion],
-//     };
-//     // Update the options state with the updated option
-//     const updatedOptions = addNewOption.map((opt, index) =>
-//       index === optionIndex ? updatedOption : opt
-//     );
-//     console.log(updatedOptions, "updatedOptions")
-//     setAddNewOption(updatedOptions);
-//   }
 // };
 
 
@@ -228,89 +203,6 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                 <img src={Bin} alt='Bin' className='cursor-pointer'  />
             </div>
         </div>
-        {/* <div className='flex flex-col gap-[11px] mt-[20px]'>
-          <div className='flex items-center gap-2 '>
-            <p className='font-medium font-Kumbh'>1.</p>
-            <input 
-                type='text'
-                className='w-[931px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[22px]' 
-                placeholder='Question'
-                onChange={(e) => handleTitleChange(e)}
-              />
-          </div>
-          <div>
-            {
-              addNewOption.map((item, index) => (
-                <div key={index}>
-                  <div className='flex items-center gap-2 pl-10'>
-                    <img src={Check} alt='check' />
-                    <input 
-                      type='text'
-                      className='w-[827px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[22px]' 
-                      placeholder={`Option ${index + 1}`}
-                      onChange={(e) => handleOptionChange(e)}
-                    />
-                    <button className='bg-[#00BA78] flex items-center gap-1 w-[50px] h-[55px] p-2' onClick={() => setShowTip(true)}>
-                      <FaPlus className="text-[#fff] w-[11px] h-[11px] font-Kumbh"/>
-                      <p className='text-[#fff]'>Tip</p>
-                    </button>
-                  </div>
-                  {
-                    showTip &&
-                      <div className='mt-[24px] pl-[160px]'>
-                        <textarea
-                          className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
-                          placeholder='Type tip...'
-                          rows="5"
-                          onChange={(e) => handleTipChange(e)}
-                        >
-                        </textarea>
-                      </div>
-                  }
-                  {  
-                    addNewOption?.map(( item, index) => (
-                      // console.log(item, "item")
-                      <div key={index}> 
-                        {
-                          item?.subQuestions?.map((subItem, index) => {
-                            console.log(subItem, "subItem")
-                            return (
-                            <div className='flex  gap-[8px] mt-[22px] pl-12' key={index}>
-                              <div className='bg-[#fff] w-[46px] h-[50px] flex items-center justify-center'>
-                                <p className='text-[#000] font-medium font-Kumbh'>{`1.${subItem?.id}`}</p>
-                              </div>
-                              <div className='flex flex-col'>
-                                <input 
-                                  type='text'
-                                  className='w-[850px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-semibold text-[14px]' 
-                                  placeholder='Sub question 1.1'
-                                  onChange={(e) => handleSubQuestionChange(e)}
-                                />
-                              </div>
-                            </div>
-                            )
-  
-                          })
-                        }
-                      </div>
-                    ))
-                  }
-                  <div className='flex items-center mt-1.5  pl-12' onClick={() => addSubQsnFunc(index)}> {/*    addSubQsnFunc()
-                    <GoPlus className="text-[#474747] text-[13px] font-Kumbh"/>
-                    <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Qsn</p>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
-         
-        
-          <div className='flex items-center justify-end mt-1 mr-8 mb-[100px]' onClick={addOption}>
-            <GoPlus className="text-[#04BC7B] text-[13px]  font-medium font-Kumbh"/>
-            <p className='text-[#04BC7B] text-[17px] font-medium font-Kumbh cursor-pointer'>Add Option</p>
-          </div>
-
-        </div> */}
 
       <div className='flex flex-col gap-[11px] mt-[20px]'>
           <div className='flex items-center gap-2 '>
@@ -350,31 +242,31 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                             {/* Additional buttons and inputs for tips and sub-questions */}
                         </div>
                         {
-                            option?.evdText && 
+                            option?.tips && 
                             <div className='flex justify-end mt-[20px] mr-8'>
                                 <div className='flex gap-[24px] items-center'>
                                 <div className='w-[315px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
 
                                 </div>
                                 <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                    <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${eviWord}`}</span></p>
+                                    <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.tips}`}</span></p>
                                 </div>
                                 <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                    <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{option?.evdText}</span></p>
+                                    <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{option?.text}</span></p>
                                 </div>
 
                                 </div>
                             </div>
                         }
                         {
-                            option?.tips &&
+                          option?.tips &&
                             <div className='mt-[24px] pl-[160px]'>
                                 <textarea
-                                className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
-                                placeholder='Type tip...'
-                                rows="5"
-                                value={option?.tips}
-                                onChange={(e) => handleTipChange(e)}
+                                  className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
+                                  placeholder='Type tip...'
+                                  rows="5"
+                                  value={option?.tips}
+                                  onChange={(e) => handleTipChange(e)}
                                 >
                                 </textarea>
                             </div>
@@ -385,11 +277,11 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
                                 <div className='bg-[#fff] w-[34px] h-[26px] flex items- justify-center'>
                                 <input 
                                     className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
-                                    placeholder='0'
+                                    placeholder={option?.point || 0}
                                     onChange={(e) => handlePointsChange(e)}
                                     name='point'
                                     type='number'
-                                    value={points}
+                                    value={option?.point}
                                 />
                                 </div>
                             </div>
@@ -434,12 +326,12 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
 
                                         </div>
                                         <div className='w-[210px] h-[154px] overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                            <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${eviWord}`}</span></p>
+                                            <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${item?.optionKeyword}`}</span></p>
                                         
 
                                         </div>
                                         <div className='w-[315px] h-[154px] overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                            <p className='font-Kumbh font-semibold text-xs'>{`${eviTitle}:`} <span className='font-normal'>{eviQuestion}</span></p>
+                                            <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{item?.optionEviQuestion}</span></p>
                                         </div>
 
                                         </div>
@@ -504,7 +396,11 @@ const handleSubQuestionChange = (optionId, subQuestionId, e) => {
         </div>
 
         <ModalPop isOpen={showModal}>
-          <UploadEvidence handleClose={() => setShowModal(false)} />
+          <UploadEvidence 
+            handleClose={() => setShowModal(false)} 
+            setAddNewOption={setAddNewOption} 
+            addNewOption={addNewOption} 
+          />
         </ModalPop>
       </div>
   )

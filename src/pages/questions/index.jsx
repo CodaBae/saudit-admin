@@ -1,75 +1,3 @@
-// import React, { useState } from 'react'
-// import { FaPlus } from "react-icons/fa";
-// import { MdClose } from "react-icons/md";
-
-// import Book from "../../assets/png/book.png"
-// import Hamburger from "../../assets/svg/section.svg"
-// import Idea from "../../assets/svg/idea.svg"
-// import Section from './components/Section';
-// import Choice from './components/Choice';
-
-// const Questions = () => {
-//     const [type, setType] = useState("Create Question");
-//     const [showChoice, setShowChoice] = useState(false);
-//     const [show, setShow] = useState(false);
-
-//     const handleShow = () => {
-//         setShow(prev => !prev)
-//     }
-
-   
-
-//   return (
-//     <div className='flex flex-col'>
-//         <div className='flex flex-col'>
-//             <div className='flex items-center gap-2'>
-//                 <p className='font-Kumbh font-medium text-[25px]'>{type}</p>
-//                 <img src={Book} alt='Book' className='w-[49px] h-[31px]' />
-//             </div>
-//             <p className={`${type === "Let's Begin" ? "text-[#A1A1A1] font-Kumbh text-[17px]" : "hidden "}`}>Start with a section</p>
-//         </div>
-
-//          {type === "Fill the form" && <Section setType={setType}/>}
-      
-//         {showChoice && <Choice setShowChoice={setShowChoice}/>}
-
-//         <div className={`${type === "Let's Begin" || show ? "flex items-center gap-2 mt-[89px]  animate__animated animate__fadeInUp" :  "hidden" }`}>
-//             <button onClick={() => {type === "Let's Begin" ? setType("Create Question") : setShow(false)}} className='w-[66px] h-[62px] bg-[#00BA78] flex justify-center rounded-lg items-center'>
-//                 <MdClose className='text-[#fff]' />
-//             </button>
-//             <button onClick={() =>  setType("Fill the form")} className='flex items-center justify-center h-[62px] rounded-lg gap-2 w-[151px] border border-[#0C704C]'>
-//                 <img src={Hamburger} alt='Hamburger' />
-//                 <p className='font-Kumbh font-medium text-[#000] text-[17px]'>Section</p>
-//             </button>
-//             <button  onClick={() => setShowChoice(true)} className='flex items-center justify-center h-[62px] rounded-lg gap-2 w-[151px] border border-[#0C704C]'>
-//                 <div className='w-[20px] h-[20px] rounded-full flex justify-center items-center border border-[#288766]'>
-//                     <div className='bg-[#00BA78] rounded-full w-[14px] h-[14px]'></div>
-//                 </div>
-//                 <p className='font-Kumbh font-medium text-[#000] text-[17px]'>Choice</p>
-//             </button>
-//             <button className='flex items-center justify-center h-[62px] rounded-lg gap-2 w-[151px] border border-[#0C704C]'>
-//                 <div className='w-[19px] h-[19px] rounded flex justify-center items-center border border-[#288766]'>
-//                     <p className='text-[#00BA78] font-Kumbh text-[10px]'>T</p>
-//                 </div>
-//                 <p className='font-Kumbh font-medium text-[#000] text-[17px]'>Text</p>
-//             </button>
-//             <button className='flex items-center justify-center h-[62px] rounded-lg gap-2 w-[151px] border border-[#0C704C]'>
-//                 <img src={Idea} alt='Idea' />
-//                 <p className='font-Kumbh font-medium text-[#000] text-[17px]'>Tips</p>
-//             </button>
-//         </div>
-
-
-//         <button onClick={() => {type === "Create Question" ? setType("Let's Begin") :   handleShow()}} className={`${type === "Let's Begin" ? "hidden" : "w-[168px] h-[62px] mt-[89px] bg-[#00BA78] flex rounded-lg items-center gap-2 justify-center p-2 mb-5"}`}>
-//             <FaPlus className='text-[#fff]' />
-//             <p className='text-[#fff]'>Add New</p>
-//         </button>
-//     </div>
-//   )
-// }
-
-// export default Questions
-
 import React, { useState } from 'react';
 import { FaPlus } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
@@ -168,10 +96,11 @@ const Questions = () => {
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
 
   // Choice Forms
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, subQuestions: [] }]);
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
   const [optionTipChange, setOptionTipChange] = useState("")
   const [points, setPoints] = useState(0)
+  const [tipsError, setTipsError] = useState("")
 
 
 
@@ -264,17 +193,27 @@ const Questions = () => {
         selectAssessmentCat: assessmentSelected?.name,  
         selectComplianceCat: complianceSelected?.name,  
         text: optionTitle,
-        tips: optionTipChange,
         point: points,
-        options: [
-          {
-            text: `${addNewOption[0]?.optionText}`,
-            evd: "No evidence",
-            evdText:`${evidenceQuestion}`,
-            tips: `${keyWord}`
-          },
-        ]
+        tips: addNewOption[0]?.optionTip,
+        options: addNewOption.map(option => ({
+          text: option.optionText,
+          point: option.optionPoints,
+          evd: "No evidence",
+          evdText: option.optionEviQuestion,
+          tips: option.optionKeyword,
+        }))
+        
+        // [
+        //   {
+        //     text: `${addNewOption[0]?.optionText}`,
+        //     evd: "No evidence",
+        //     evdText:`${evidenceQuestion}`,
+        //     tips: `${keyWord}`
+        //   },
+        // ]
       }
+      console.log(addNewOption, "addNewOption")
+      // return 
       await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
         headers: {
           "Content-Type": 'application/json',
@@ -287,7 +226,8 @@ const Questions = () => {
           autoClose: 5000,
           closeOnClick: true,
         })
-        handleDeleteSection()
+        window.location.reload()
+
       })
       .catch((err) => {
         console.log(err, 'err')
@@ -296,7 +236,6 @@ const Questions = () => {
           autoClose: 5000,
           closeOnClick: true,
         })
-        handleDeleteSection()
       })
 
   }
@@ -313,9 +252,10 @@ const Questions = () => {
   }
 
   const handleSubmitForm = () => {
-   if (sections.length === 1 && optionTitle) {
+   if (sections.length === 1 && optionTitle && tipsError) {
       submitForm()
-      addSection();
+    } else {
+      setTipsError("Tips is required")
     }
   }
 
@@ -371,10 +311,10 @@ const Questions = () => {
         setAddNewOption={setAddNewOption}
         optionTitle={optionTitle} 
         setOptionTitle={setOptionTitle} 
-        optionTipChange={optionTipChange} 
-        setOptionTipChange={setOptionTipChange}
         points={points}
         setPoints={setPoints}
+        tipsError={tipsError}
+        setTipsError={setTipsError}
       />)
       }
       {showTexts && texts.map(text => <Text key={text.id} textId={text.id} onDelete={handleDeleteTexts} setShowTexts={setShowTexts} />)}
