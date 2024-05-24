@@ -52,16 +52,13 @@ const ViewQuestions = () => {
                             Sector
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            SubSector
+                            Question Name
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            User Function
-                        </th>
-                        <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            Accessment
+                            Option Count
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#818181] font-Kumbh text-left">
-                            Compliance
+                            Sub Question
                         </th>
                     </tr>
                     {allQuestions?.map((item, index) => (
@@ -73,17 +70,15 @@ const ViewQuestions = () => {
                                 <p className='text-sm font-kumbh'>{item?.sector}</p> 
                             </td>
                             <td className='h-[55px] px-4'>
-                                <p className='text-sm font-kumbh'>{item?.subSector}</p>
+                                <p className='text-sm font-kumbh'>{item?.text}</p>
                             </td>
                             <td className='h-[55px] px-4'>
-                                <p className='text-sm font-kumbh'>{item?.userFuntion}</p>
+                                <p className='text-sm font-kumbh'>{item?.options?.length}</p>
                             </td>
                             <td className='h-[55px] px-4 '>
-                                <p className='text-sm font-kumbh'>{item?.selectAssessmentCat}</p>
+                                <p className='text-sm font-kumbh'>{item?.options[index]?.nextQuestion}</p>
                             </td>
-                            <td className='h-[55px] px-4 '>
-                                <p className='text-sm font-kumbh'>{item?.selectComplianceCat}</p>
-                            </td>
+                          
                         </tr>
                     ))}
                 </table>
