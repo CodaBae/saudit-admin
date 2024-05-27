@@ -23,6 +23,13 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
         setAddNewOption(newOptions);
     };
 
+    const handleFileUpload = (optionId, e) => {
+        const newOptions = addNewOption.map(option =>
+            option.id === optionId ? { ...option, optionImageName: e.target.files[0] } : option
+        );
+        setAddNewOption(newOptions);
+    }
+
     // const handleEvidenceQuestion = (e) => {
     //     setEvidenceQuestion(e.target.value)
     // } 
@@ -67,13 +74,13 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
             handleClose()
         }
         
-        const handleFileChange = (event) => {
-            const selectedFile = event.target.files[0];
-            setUserImage(selectedFile)
-        };
+        // const handleFileChange = (event) => {
+        //     const selectedFile = event.target.files[0];
+        //     setUserImage(selectedFile)
+        // };
 
   return (
-    <div style={{ overflow:"scroll" }}className='w-[90%] h-[90vh] bg-[#fff] flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
+    <div style={{ overflow:"scroll" }} className='w-[90%] h-[90vh] bg-[#fff] flex flex-col rounded items-center px-[46px] py-[32px] items-center gap-[26px]'>
         <div className='flex gap-auto w-full justify-between'>
             <div className='w-[200px]'></div>
             <div className='flex flex-col items-center gap-1'>
@@ -100,10 +107,10 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
                     <div className='flex flex-col lg:mx-auto  bg-transparent rounded-xl items-center lg:w-[504px] border-dashed border-[#D0D5DD] border px-6 py-[28px]  gap-[16px]'>
                         <div className='p-[9px] w-full cursor-pointer flex justify-center gap-[16px] '>
                             {  
-                                userImage?.name ? 
+                                item?.optionImageName?.name ? 
                                     <div className='flex flex-col gap-1'>
                                         <div className='flex items-center justify-between'>
-                                            <p className='text-[15px] font-hanken text-[#858585]'>{userImage?.name}</p>
+                                            <p className='text-[15px] font-hanken text-[#858585]'>{item?.optionImageName?.name}</p>
                                             <p className='text-[#000] text-[11px]'>Completed</p>
                                         </div>
                                         <div className='w-[266px] h-[5px] bg-[#51E38B] rounded-lg'></div>
@@ -122,7 +129,7 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
                                                 type="file"
                                                 id="fileInput"
                                                 style={{ display: 'none' }}
-                                                onChange={handleFileChange}
+                                                onChange={(e) => handleFileUpload(item?.id, e)}
                                             />
                                         </label>
                                     </div>

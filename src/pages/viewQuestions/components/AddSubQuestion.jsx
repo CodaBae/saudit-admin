@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoPlus } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
 import { Switch } from 'antd';
@@ -90,7 +90,7 @@ const handlePointsChange = (e) => {
   setPoints(e.target.value);
 };
 
-const submitNextQuestion = () =>  async () => {  //option
+const submitNextQuestion = async () => {  //option
   // console.log(option, "same")
   const data= {
       nextQuestionId: getQuestionId,
@@ -161,10 +161,18 @@ const submitForm = async () => {
 const handleSubmitForm = () => {
   if (optionTitle && tipsError) {
      submitForm()
-   } else {
+   } 
+  //  else if(getQuestionId) {
+  
+  //  } 
+ else {
      setTipsError("Tips is required")
    }
  }
+
+ useEffect(() => {
+  submitNextQuestion()
+ }, [getQuestionId])
 
 return (
   <div className='w-[1065px] mt-[33px] h-auto p-10 flex flex-col animate__animated animate__fadeInUp bg-[#F4F4F4] border border-x-0 border-b-0 border-t border-[#40D49F]'>
@@ -265,12 +273,12 @@ return (
      </div>
      <hr />
      <div className='flex items-center mt-3 justify-between'>
-        <div onClick={() => handleSubmitForm()} className='flex items-center mt-1.5  pl-12'> {/* addSubQsnFunc(item.id) */}
+        {/* <div onClick={() => handleSubmitForm()} className='flex items-center mt-1.5  pl-12'>
             <GoPlus className="text-[#474747] text-[13px]  font-medium font-Kumbh"/>
             <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Question</p>
-        </div>
+        </div> */}
           
-        <button className='w-[100px] p-2 bg-[#04BC7B] mr-8' onClick={submitNextQuestion()}>
+        <button className='w-[100px] p-2 bg-[#04BC7B] mr-8' onClick={() => handleSubmitForm()}>
             <p className='text-[#fff]'>Submit</p>
         </button>
      
