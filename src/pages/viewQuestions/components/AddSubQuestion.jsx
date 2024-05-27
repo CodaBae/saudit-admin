@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GoPlus } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
 import { Switch } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ import Bin from "../../../assets/svg/bin.svg"
 import Check from "../../../assets/svg/check.svg"
 import Plus from "../../../assets/png/plus_icon.png"
 import UploadEvidence from './UploadEvidence';
+import { CgSpinner } from 'react-icons/cg';
 
 
 
@@ -21,6 +22,7 @@ const AddSubQuestion = () => {
   const [option, setOption] = useState("")
   const [showTip, setShowTip] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTip: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
@@ -34,6 +36,8 @@ const AddSubQuestion = () => {
   }
 
   console.log(addNewOption, "addNewOption")
+
+  const navigate = useNavigate()
 
 
   const eviTitle = localStorage.getItem("title")
@@ -103,18 +107,20 @@ const submitNextQuestion = async () => {  //option
           autoClose: 5000,
           closeOnClick: true,
       })
+      navigate("/viewQuestions")
   })
   .catch((err) => {
       console.log(err, "err")
-      toast("Error", {
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: true,
-      })
+      // toast("Error", {
+      //     position: "top-right",
+      //     autoClose: 5000,
+      //     closeOnClick: true,
+      // })
   }) 
 }
 
 const submitForm = async () => {
+  setLoading(true)
   const data = {
     sector: state?.sector, 
     subSector: state?.subSector,  
@@ -142,6 +148,7 @@ const submitForm = async () => {
   .then((res) => {
     console.log(res, "resgo")
     setGetQuestionId(res?.data?.question?._id)
+    setLoading(false)
     toast(`${res?.data?.message}`, {
       position: "top-right",
       autoClose: 5000,
@@ -150,6 +157,7 @@ const submitForm = async () => {
   })
   .catch((err) => {
     console.log(err, 'errgo')
+    setLoading(false)
     toast(`${err?.response?.data?.message}`, {
       position: "top-right",
       autoClose: 5000,
@@ -161,17 +169,13 @@ const submitForm = async () => {
 const handleSubmitForm = () => {
   if (optionTitle && tipsError) {
      submitForm()
-   } 
-  //  else if(getQuestionId) {
-  
-  //  } 
- else {
+   } else {
      setTipsError("Tips is required")
    }
  }
 
  useEffect(() => {
-  submitNextQuestion()
+    submitNextQuestion()
  }, [getQuestionId])
 
 return (
@@ -278,8 +282,13 @@ return (
             <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Question</p>
         </div> */}
           
-        <button className='w-[100px] p-2 bg-[#04BC7B] mr-8' onClick={() => handleSubmitForm()}>
+        <button className='w-[100px] p-2 bg-[#04BC7B] flex items-center justify-center mr-8' onClick={() => handleSubmitForm()}>
+          {
+            loading ?
+            <CgSpinner className='animate-spin text-lg text-[#fff]' />
+            :
             <p className='text-[#fff]'>Submit</p>
+          }
         </button>
      
       </div>
