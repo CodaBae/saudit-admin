@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { GoPlus } from "react-icons/go";
 import { FaPlus } from "react-icons/fa";
 import { Switch } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import ModalPop from '../../../components/modalPop';
 
@@ -38,9 +38,13 @@ const QuestionsInfo = ({ }) => {
     setPoints(e.target.value)
   }
 
+  const navigate = useNavigate()
+
   const { state } = useLocation()
 
-  console.log(state, "state")
+  const stateData = state
+
+  // console.log(state, "state")
 
   const handleTipChange = (e) => {
     setOptionTipChange(e.target.value)
@@ -54,6 +58,8 @@ const QuestionsInfo = ({ }) => {
 
   const eviQuestion = localStorage.getItem("question")
   console.log(eviQuestion, "eviTitle")
+
+
 
   const submitNextQuestion = (option) =>  async () => { 
     console.log(option, "same")
@@ -122,7 +128,7 @@ const QuestionsInfo = ({ }) => {
       })
     })
 
-}
+  }
 
   // const handleSubQuestionChange = (e) => {
   //   setSubQuestionChange(e.target.value)
@@ -157,7 +163,7 @@ const handleOptionChange = (optionId, e) => {
 
 const addOption = () => {
     const newOptionId = addNewOption.length + 1;
-    const newOption = { id: newOptionId, optionText: '', subQuestions: [] };
+    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTip: "" };
     setAddNewOption([...addNewOption, newOption]);
 };
 
@@ -192,6 +198,11 @@ const addOption = () => {
   const handleSubmit = () => {
     submitForm()
   }
+
+  const handleAddSubQuestions = (optionId) => {
+    navigate("/addSubQuestions", { state: { optionId, ...state } });
+};
+
   
 
   return (
@@ -216,8 +227,6 @@ const addOption = () => {
             />
           </div>
             { state?.options?.map((option, index) => {
-                // const { _id } = item
-                // setGetOptionId(_id)
                 console.log(option, 'option')
             
                 return (
@@ -287,7 +296,8 @@ const addOption = () => {
                                 </div>
                             </div>
                         </div>
-                        {showAddQuestion && addNewOption.map((item, index) => (
+
+                        {/* {showAddQuestion && addNewOption.map((item, index) => (
                             <div key={item.id} className='flex mt-4  pl-[160px] flex-col gap-4'>
                               <p className='font-hanken text-lg font-medium text-[#000]'>Sub Questions</p>
                                 <div className='flex items-center gap-2 '>
@@ -319,7 +329,7 @@ const addOption = () => {
                                         <FaPlus className="text-[#fff] w-[11px] h-[11px] font-Kumbh"/>
                                         <p className='text-[#fff]'>Tip</p>
                                     </button>
-                                    {/* Additional buttons and inputs for tips and sub-questions */}
+                                    {/* Additional buttons and inputs for tips and sub-questions 
                                 </div>
                                 <div className='flex justify-end mr-8 mt-3'>
                                     <div className='flex items-center gap-2'>
@@ -341,7 +351,7 @@ const addOption = () => {
                                     <div className='flex justify-end mt-[20px] mr-8'>
                                         <div className='flex gap-[24px] items-center'>
                                         <div className='w-[215px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-
+                                        <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${item?.optionImageName?.name}`}</span></p>
                                         </div>
                                         <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                             <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${item?.optionKeyword}`}</span></p>
@@ -349,7 +359,7 @@ const addOption = () => {
 
                                         </div>
                                         <div className='w-[215px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                            <p className='font-Kumbh font-semibold text-xs'>{`Strategic:`} <span className='font-normal'>{item?.optionEviQuestion}</span></p>
+                                            <p className='font-Kumbh font-semibold text-xs'>Suggested Evidence: <span className='font-normal'>{item?.optionEviQuestion}</span></p>
                                         </div>
 
                                         </div>
@@ -368,28 +378,26 @@ const addOption = () => {
                                         </textarea>
                                     </div>
                                 }
-                            
                             </div>
-                        ))}
+                        ))} */}
+                        {/* <div onClick={addOption} className='flex items-center justify-end mt-1 mr-8 mb-4'>
+                            <GoPlus className="text-[#04BC7B] text-[13px] font-medium font-Kumbh" />
+                            <p className='text-[#04BC7B] text-[17px] font-medium font-Kumbh cursor-pointer'>Add Option</p>
+                        </div> onClick={() => {optionTitle ? handleSubmit() : setShowAddQuestion(true)}} */}
                         <div className='flex justify-between items-center mt-4'>
-                            <div onClick={() => {optionTitle ? handleSubmit() : setShowAddQuestion(true)}} className='flex items-center mt-1.5  pl-12'> {/* addSubQsnFunc(item.id) */}
-                                <GoPlus className="text-[#474747] text-[13px]  font-medium font-Kumbh"/>
-                                <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Question</p>
-                            </div>
-                            <button className='w-[100px] p-2 bg-[#04BC7B] mr-8' onClick={submitNextQuestion(option?._id)}>
-                                <p className='text-[#fff]'>Submit</p>
-                            </button>
+                          <div onClick={() => handleAddSubQuestions(option?._id)} className='flex items-center mt-1.5  pl-12'> {/* addSubQsnFunc(item.id) */}
+                              <GoPlus className="text-[#474747] text-[13px]  font-medium font-Kumbh"/>
+                              <p className='text-[#474747] text-[13px] font-Kumbh cursor-pointer'>Add Sub Question</p>
+                          </div>
+                          {/* <button className='w-[100px] p-2 bg-[#04BC7B] mr-8' onClick={submitNextQuestion(option?._id)}>
+                              <p className='text-[#fff]'>Submit</p>
+                          </button> */}
                         </div>
                                     
                     </div>
                 )
             }) 
         }
-        
-        <div onClick={addOption} className='flex items-center justify-end mt-1 mr-8 mb-[100px]'>
-            <GoPlus className="text-[#04BC7B] text-[13px]  font-medium font-Kumbh" />
-            <p className='text-[#04BC7B] text-[17px] font-medium font-Kumbh cursor-pointer'>Add Option</p>
-        </div>
     </div>
         <hr />
         <div className='flex items-center mt-3 justify-between'>
