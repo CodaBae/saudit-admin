@@ -71,6 +71,17 @@ const assessment = [
 const compliance = [
   { name: "Select compliance category"},
   { name: "SDG"},
+  { name: "Standards"},
+]
+
+const standards = [
+  { name: "Select Standards"},
+  { name: "International"},
+]
+
+const international = [
+  { name: "Select International"},
+  { name: "ISSB S2"},
 ]
 
 const Questions = () => {
@@ -94,6 +105,8 @@ const Questions = () => {
   const [userFunctionSelected, setUserFunctionSelected] = useState(userFunction[0])
   const [assessmentSelected, setAssessmentSelected] = useState(assessment[0])
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
+  const [standardsSelected, setStandardsSelected] = useState(standards[0])
+  const [internationalSelected, setInternationalSelected] = useState(international[0])
 
   // Choice Forms
   const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
@@ -191,7 +204,9 @@ const Questions = () => {
         industryFuntion: industryFunctionSelected?.name,  
         userFuntion: userFunctionSelected?.name,  
         selectAssessmentCat: assessmentSelected?.name,  
-        selectComplianceCat: complianceSelected?.name,  
+        selectComplianceCat: complianceSelected?.name,
+        standards: standardsSelected?.name,
+        international: internationalSelected?.name,  
         text: optionTitle,
         point: points,
         tips: addNewOption[0]?.optionTip,
@@ -291,6 +306,10 @@ const Questions = () => {
           setAssessmentSelected={setAssessmentSelected}
           complianceSelected={complianceSelected}
           setComplianceSelected={setComplianceSelected}
+          standardsSelected={standardsSelected}
+          setStandardsSelected={setStandardsSelected}
+          internationalSelected={internationalSelected}
+          setInternationalSelected={setInternationalSelected}
           sector={sector}
           subSector={subSector}
           sectorType={sectorType}
@@ -298,6 +317,8 @@ const Questions = () => {
           userFunction={userFunction}
           assessment={assessment}
           compliance={compliance}
+          standards={standards}
+          international={international}
         />) 
       }
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}
