@@ -40,7 +40,11 @@ const sectorType = [
 
 const industryFunction = [
   { name: "Industry function"},
+  { name: "Railway Owner"},
   { name: 'Railway Operator' },
+  { name: 'Railway Maintainer' },
+  { name: 'Engineering and Construction' },
+  { name: 'Manufacturing (Trains, Signalling, Track, Communications Systems' },
 ]
 
 const userFunction = [
