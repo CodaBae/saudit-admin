@@ -201,6 +201,7 @@ const Questions = () => {
 
 
   const submitForm = async () => {
+    console.log(addNewOption, "addNewOption")
       const data = {
         sector: sectorSelected?.name, 
         subSector: subSectorSelected?.name,  

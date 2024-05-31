@@ -44,7 +44,7 @@ const QuestionsInfo = ({ }) => {
 
   const stateData = state
 
-  // console.log(state, "state")
+  console.log(state, "state")
 
   const handleTipChange = (e) => {
     setOptionTipChange(e.target.value)
@@ -275,7 +275,7 @@ const addOption = () => {
                                   className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
                                   placeholder='Type tip...'
                                   rows="5"
-                                  value={option?.tips}
+                                  value={state?.tips}
                                   onChange={(e) => handleTipChange(e)}
                                 >
                                 </textarea>
