@@ -78,14 +78,14 @@ const handlePointChange = (optionId, e) => {
 
 const handleTipChange = (optionId, e) => {
   const newOptions = addNewOption.map(option =>
-    option.id === optionId ? { ...option, optionTip: e.target.value } : option
+    option.id === optionId ? { ...option, optionTips: e.target.value } : option
   );
   setAddNewOption(newOptions);
 };
 
 const addOption = () => {
     const newOptionId = addNewOption.length + 1;
-    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTip: "" };
+    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTips: "" };
     setAddNewOption([...addNewOption, newOption]);
 };
 
@@ -202,14 +202,14 @@ const handlePointsChange = (e) => {
                       className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
                       placeholder='Type tip...'
                       rows="5"
-                      value={item?.optionTip}
+                      value={item?.optionTips}
                       onChange={(e) =>  handleTipChange(item.id, e)}
                       // onChange={(e) => handleTipChange(e)}
                     >
                     </textarea>
                   </div>
               }
-              {!item?.optionTip && <p className='text-red-600 flex justify-end font-mont mr-8'>{tipsError}</p>}
+              {!item?.optionTips && <p className='text-red-600 flex justify-end font-mont mr-8'>{tipsError}</p>}
               {/* {item.subQuestions.map((sub, subIndex) => (
                 <div key={sub.id} className='pl-16 mt-4'>
                   <input

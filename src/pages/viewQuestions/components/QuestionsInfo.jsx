@@ -102,7 +102,8 @@ const QuestionsInfo = ({ }) => {
         point: Number(option.optionPoints),
         evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
         evdText: option.optionEviQuestion,
-        tips: option.optionKeyword,
+        keyWord: option.optionKeyword,
+        tips: option.optionTips,
       }))
     }
     await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
@@ -259,7 +260,7 @@ const addOption = () => {
                                 <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${option?.evd}`}</span></p>
                                 </div>
                                 <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                    <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.tips}`}</span></p>
+                                    <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.keyWord}`}</span></p>
                                 </div>
                                 <div className='w-[315px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                     <p className='font-Kumbh font-semibold text-xs'>Suggested Evidence: <span className='font-normal'>{option?.text}</span></p>
@@ -275,7 +276,7 @@ const addOption = () => {
                                   className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
                                   placeholder='Type tip...'
                                   rows="5"
-                                  value={state?.tips}
+                                  value={option?.tips}
                                   onChange={(e) => handleTipChange(e)}
                                 >
                                 </textarea>

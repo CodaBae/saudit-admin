@@ -24,7 +24,7 @@ const AddSubQuestion = () => {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTip: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
+  const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
   const [optionTitle, setOptionTitle] = useState("")
   const [optionTipChange, setOptionTipChange] = useState("")
   const [points, setPoints] = useState(0)
@@ -79,14 +79,14 @@ const handlePointChange = (optionId, e) => {
 
 const handleTipChange = (optionId, e) => {
   const newOptions = addNewOption.map(option =>
-    option.id === optionId ? { ...option, optionTip: e.target.value } : option
+    option.id === optionId ? { ...option, optionTips: e.target.value } : option
   );
   setAddNewOption(newOptions);
 };
 
 const addOption = () => {
     const newOptionId = addNewOption.length + 1;
-    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTip: "" };
+    const newOption = { id: newOptionId, optionText: '', optionPoints: "", optionTips: "" };
     setAddNewOption([...addNewOption, newOption]);
 };
 
@@ -130,14 +130,15 @@ const submitForm = async () => {
     selectAssessmentCat: state?.selectAssessmentCat,  
     selectComplianceCat: state?.selectComplianceCat,  
     text: optionTitle,
-    tips: addNewOption?.[0]?.optionTip,        //optionTipChange,
+    tips: addNewOption?.[0]?.optionTips,        //optionTipChange,
     point: points,
     options: addNewOption.map(option => ({
       text: option.optionText,
       point: Number(option.optionPoints),
       evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
       evdText: option.optionEviQuestion,
-      tips: option.optionKeyword,
+      tips: option.optionTips,
+      keyWord: option.optionKeyword,
     }))
   }
   await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
@@ -259,14 +260,14 @@ return (
                    className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
                    placeholder='Type tip...'
                    rows="5"
-                   value={item?.optionTip}
+                   value={item?.optionTips}
                    onChange={(e) =>  handleTipChange(item.id, e)}
                   //  onChange={(e) => handleTipChange(e)}
                  >
                  </textarea>
                </div>
            }
-           {!item?.optionTip && <p className='text-red-600 flex justify-end font-mont mr-8'>{tipsError}</p>}
+           {!item?.optionTips && <p className='text-red-600 flex justify-end font-mont mr-8'>{tipsError}</p>}
          
          </div>
        ))}
