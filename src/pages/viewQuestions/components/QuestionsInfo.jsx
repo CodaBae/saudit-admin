@@ -263,7 +263,7 @@ const addOption = () => {
                                     <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.keyWord}`}</span></p>
                                 </div>
                                 <div className='w-[315px] h-auto overflow-auto  rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                    <p className='font-Kumbh font-semibold text-xs'>Suggested Evidence: <span className='font-normal'>{option?.text}</span></p>
+                                    <p className='font-Kumbh font-semibold text-xs'>Suggested Evidence: <span className='font-normal'>{option?.evdText}</span></p>
                                 </div>
 
                                 </div>
