@@ -241,7 +241,7 @@ return (
                <div className='flex justify-end mt-[20px] mr-8'>
                  <div className='flex gap-[24px] items-center'>
                    <div className='w-[315px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                   <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${item?.optionImageName?.name}`}</span></p>
+                   <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${item?.optionImageName?.original_filename}`}</span></p>
                    </div>
                    <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                      <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${item?.optionKeyword}`}</span></p>

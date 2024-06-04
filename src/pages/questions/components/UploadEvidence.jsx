@@ -3,6 +3,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { message, Switch, Upload } from 'antd';
 
 import UploadIcon from "../../../assets/png/upload_icon.png"
+import axios from 'axios';
 
 const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
     const [evidenceQuestion, setEvidenceQuestion] = useState("")
@@ -23,12 +24,38 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
         setAddNewOption(newOptions);
     };
 
-    const handleFileUpload = (optionId, e) => {
-        const newOptions = addNewOption.map(option =>
-            option.id === optionId ? { ...option, optionImageName: e.target.files[0] } : option
-        );
-        setAddNewOption(newOptions);
-    }
+    // const handleFileUpload = (optionId, e) => {
+    //     const newOptions = addNewOption.map(option =>
+    //         option.id === optionId ? { ...option, optionImageName: e.target.files[0] } : option
+    //     );
+    //     setAddNewOption(newOptions);
+    // }
+
+    
+    const handleFileUpload = async (optionId, event) => {
+        const files = event.target.files;
+        if (files) {
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', 'rztljgso');
+    
+            try {
+              const uploadResponse = await axios.post("https://api.cloudinary.com/v1_1/dizlp3hvp/upload", formData);
+              const data = uploadResponse.data;
+              console.log(data, "data")
+              const newOptions = addNewOption.map(option =>
+                option.id === optionId ? { ...option, optionImageName: data } : option
+            );
+            setAddNewOption(newOptions);
+           
+            } catch (error) {
+              console.error('Error uploading file:', error);
+            }
+          }
+        }
+      };
 
     // const handleFileChange = (event) => {
     //     const selectedFile = event.target.files[0];
@@ -104,10 +131,10 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
                     <div className='flex flex-col lg:mx-auto  bg-transparent rounded-xl items-center lg:w-[504px] border-dashed border-[#D0D5DD] border px-6 py-[28px]  gap-[16px]'>
                         <div className='p-[9px] w-full cursor-pointer flex justify-center gap-[16px] '>
                             {  
-                                item?.optionImageName?.name ? 
+                                item?.optionImageName?.original_filename ? 
                                     <div className='flex flex-col gap-1'>
                                         <div className='flex items-center justify-between'>
-                                            <p className='text-[15px] font-hanken text-[#858585]'>{userImage?.name}</p>
+                                            <p className='text-[15px] font-hanken text-[#858585]'>{ item?.optionImageName?.original_filename}</p>
                                             <p className='text-[#000] text-[11px]'>Completed</p>
                                         </div>
                                         <div className='w-[266px] h-[5px] bg-[#51E38B] rounded-lg'></div>

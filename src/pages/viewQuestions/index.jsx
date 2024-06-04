@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Skeleton } from '@mui/material';
+import { Divider, Skeleton } from '@mui/material';
+
+import Book from "../../assets/png/book.png";
+
+import ArrowDown from "../../assets/svg/arrowDown.svg";
+import ArrowUp from "../../assets/svg/arrowUp.svg";
 
 const ViewQuestions = () => {
     const [allQuestions, setAllQuestions] = useState([])
@@ -34,8 +39,9 @@ const ViewQuestions = () => {
 
   return (
     <div className='pt-[25px] flex flex-col'>
-        <div className='flex flex-col gap-[25px]'>
-            <p className='text-[#000] font-hanken font-medium text-[20px]'>Questions List</p>
+        <div className='flex items-center gap-[25px]'>
+            <p className='text-[#000] font-hanken font-medium text-[20px]'>Review Question</p>
+            <img src={Book} alt="Book" className="w-[49px] h-[31px]" />
         </div>
 
         {
@@ -43,22 +49,25 @@ const ViewQuestions = () => {
             <Skeleton variant="rectangular" width={1185} height={1000} style={{ backgroundColor: 'rgba(0,0,0, 0.06)' }} />
             :
             <>
-                <table className='w-full'>
-                    <tr className='h-[32px]  border-0' >
+                <table className='w-full mt-[22px]'>
+                    <tr className='h-[32px] border border-x-0 border-[#000] border-t-0' >
                         <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            Number
+                            Question No
                         </th>
                         <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
                             Sector
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            Question Name
+                            Question
                         </th>
                         <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
-                            Option Count
+                            Option count
                         </th>
-                        <th className="font-medium px-2 text-[18px] text-[#818181] font-Kumbh text-left">
-                            Sub Question
+                        <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
+                            Sub Qsn
+                        </th>
+                        <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
+                            Last edited
                         </th>
                     </tr>
                     {allQuestions?.map((item, index) => (
@@ -69,14 +78,23 @@ const ViewQuestions = () => {
                             <td className='h-[55px] px-4 '>
                                 <p className='text-sm font-kumbh'>{item?.sector}</p> 
                             </td>
-                            <td className='h-[55px] px-4'>
-                                <p className='text-sm font-kumbh'>{item?.text}</p>
+                            <td className='h-[55px] px-4 '>
+                                <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff] '>{item?.text.slice(0, 20)}</p>
                             </td>
                             <td className='h-[55px] px-4'>
-                                <p className='text-sm font-kumbh'>{item?.options?.length}</p>
+                                <div className='bg-[#EBFCED] w-[36px] h-[31px] rounded-lg flex items-center justify-center'>
+                                    <p className='text-sm font-kumbh'>{item?.options?.length}</p>
+                                </div>
                             </td>
                             <td className='h-[55px] px-4 '>
-                                <p className='text-sm font-kumbh'>{item?.options[index]?.nextQuestion}</p>
+                                <div className='flex items-center gap-1.5'>
+                                    <p className='text-base font-kumbh font-medium '>View</p> 
+                                    <img src={ArrowDown} alt='ArrowDown' className='w-[14px] h-[7px]' />
+                                </div>
+                                  {/* {item?.options[index]?.nextQuestion} */}
+                            </td>
+                            <td className='h-[55px] px-4 '>
+                                <p className='text-base text-[#9F9F9F] font-medium font-kumbh'>2 days ago</p>
                             </td>
                           
                         </tr>

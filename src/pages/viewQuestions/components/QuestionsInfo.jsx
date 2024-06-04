@@ -100,7 +100,7 @@ const QuestionsInfo = ({ }) => {
       options: addNewOption.map(option => ({
         text: option.optionText,
         point: Number(option.optionPoints),
-        evd: "https://res.cloudinary.com/code-idea/image/upload/v1715177702/GTR_Sustainability_Report_2022_m53ppm.pdf",
+        evd: option?.optionImageName?.url,
         evdText: option.optionEviQuestion,
         keyWord: option.optionKeyword,
         tips: option.optionTips,
