@@ -261,7 +261,7 @@ return (
                    placeholder='Type tip...'
                    rows="5"
                    value={item?.optionTips}
-                   onChange={(e) =>  handleTipChange(item.id, e)}
+                   onChange={(e) => handleTipChange(item.id, e)}
                   //  onChange={(e) => handleTipChange(e)}
                  >
                  </textarea>

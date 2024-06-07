@@ -7,6 +7,7 @@ import ViewQuestions from '../pages/viewQuestions'
 import QuestionsInfo from "../pages/viewQuestions/components/QuestionsInfo"
 import AddSubQuestion from '../pages/viewQuestions/components/AddSubQuestion'
 
+
 const Routers = () => {
   return (
     <Routes>
@@ -16,6 +17,7 @@ const Routers = () => {
             <Route path='/viewQuestions' element={<ViewQuestions />} />
             <Route path='/viewQuestions/:id' element={<QuestionsInfo />} />
             <Route path="/addSubQuestions" element={<AddSubQuestion />} />
+           
         </Route>
     </Routes>
   )
