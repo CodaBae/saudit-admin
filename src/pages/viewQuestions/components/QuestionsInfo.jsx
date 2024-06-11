@@ -14,6 +14,7 @@ import UploadEvidence from './UploadEvidence';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { CgSpinner } from 'react-icons/cg';
+import { IoClose } from 'react-icons/io5';
 
 
 
@@ -158,6 +159,10 @@ const QuestionsInfo = ({ }) => {
     })
   }
 
+  const handleEdit = () => {
+    setEdit(prev => !prev)
+  }
+
  
   
 
@@ -166,7 +171,7 @@ const QuestionsInfo = ({ }) => {
        <div className='flex justify-between items-center'>
             <p className='font-Kumbh'></p>
             <div className='flex items-center gap-[37px]'>
-              <FaRegEdit className='text-[#818181] w-[21.5px] h-[21.5px] cursor-pointer' onClick={() => setEdit(true)}/>
+              <FaRegEdit className='text-[#818181] w-[21.5px] h-[21.5px] cursor-pointer' onClick={() => handleEdit()}/>
               {/* <img src={Copy} alt='Copy' /> */}
               <img src={Bin} alt='Bin' className='cursor-pointer' onClick={() => handleDelete()}  />
             </div>
@@ -180,12 +185,16 @@ const QuestionsInfo = ({ }) => {
                 name='optionTitle'
                 value={optionTitle || state?.text}
                 onChange={(e) => setOptionTitle(e.target.value)}
-                className='w-[931px] bg-[#fff] p-4 outline-none text-[#000] h-[50px] font-Kumbh font-normal text-base'
+                className={`${edit ? "bg-[#fff]" : "bg-transparent"} w-[931px]  p-4 outline-none text-[#000] h-[50px] font-Kumbh font-normal text-base`}
                 placeholder='Question'
             />
           </div>
             { state?.options?.map((option, index) => {
                 console.log(option, 'option')
+                const url = option?.evd 
+                let parts = url.split('/');
+                let fileName = parts[parts.length - 1];
+
             
                 return (
                     <div key={option._id} className='flex flex-col'>
@@ -194,17 +203,17 @@ const QuestionsInfo = ({ }) => {
                             <img src={Check} alt='check' />
                             <input
                                 type='text'
-                                className='w-[745px] bg-[#fff] p-4 outline-none text-[#363636] h-[50px] font-hanken font-normal text-[17px]'
+                                className={`${edit ? "bg-[#fff]" : " bg-transparent"} w-[745px] p-4 outline-none text-[#363636] h-[50px] font-hanken font-normal text-[17px]`}
                                 placeholder={`Option ${index + 1}`}
                                 value={option?.text}
                                 contentEditable
                                 onChange={(e) => handleOptionChange(option.id, e)}
                             />
-                            <button className='border border-[#000] rounded-sm flex items-center gap-1 w-[62px] h-[50px] p-2' onClick={() => setShowModal(true)}>
+                            <button className={`${edit ? "flex" : "hidden"} border border-[#000] rounded-sm items-center gap-1 w-[62px] h-[50px] p-2`}  onClick={() => setShowModal(true)}>
                                 <img src={Plus} className="text-[#000] w-[11px] h-[11px]"/>
                                 <p className='text-[#000] font-medium text-sm font-Kumbh'>Evd</p>
                             </button>
-                            <button className='bg-[#00BA78] flex items-center gap-1 w-[62px] h-[50px] rounded-sm p-2' onClick={() => setShowTip(true)}>
+                            <button className={`${edit ? "flex" : "hidden"} bg-[#00BA78] items-center gap-1 w-[62px] h-[50px] rounded-sm p-2`} onClick={() => setShowTip(true)}>
                                 <FaPlus className="text-[#fff] w-[11px] h-[11px] font-Kumbh"/>
                                 <p className='text-[#fff]'>Tip</p>
                             </button>
@@ -214,8 +223,13 @@ const QuestionsInfo = ({ }) => {
                             option?.tips && 
                             <div className='flex justify-end mt-[20px] mr-8'>
                                 <div className='flex gap-[24px] items-center'>
-                                <div className='w-[315px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
-                                <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${option?.evd}`}</span></p>
+                                <div className='w-[315px] h-auto gap-1 overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
+                                  {/* <p className='font-Kumbh text-xs font-semibold'>Upload: <span className='font-normal'>{`${fileName}`}</span></p> */}
+                                  <p className='font-hanken text-[#7B7B7B] text-xs font-normal cursor-pointer' onClick={() => window.open(option?.evd, "blank")}>{`${fileName}`}</p>
+                                  <div className='flex items-center justify-between'>
+                                    <div className='w-[260px] rounded-[5px] bg-[#014E64] h-1'></div>
+                                    <IoClose className={`${edit ? "flex" : "hidden"} text-[14px] text-[#817B7B]`} />
+                                  </div>
                                 </div>
                                 <div className='w-[210px] h-auto overflow-auto rounded-lg border border-[#A5A5A5] p-3 flex flex-col'>
                                     <p className='font-Kumbh text-xs font-semibold'>Keyword: <span className='font-normal'>{`${option?.keyWord}`}</span></p>
@@ -231,7 +245,7 @@ const QuestionsInfo = ({ }) => {
                           option?.tips &&
                             <div className='mt-[24px] pl-[160px]'>
                                 <textarea
-                                  className='w-[792px] h-[83px] bg-[#fff] p-4 outline-none'
+                                  className={`${edit ? "flex" : "hidden"} w-[792px] h-[83px] bg-[#fff]  p-4 outline-none`}
                                   placeholder='Type tip...'
                                   rows="5"
                                   value={option?.tips}
@@ -243,16 +257,16 @@ const QuestionsInfo = ({ }) => {
                         <div className='flex justify-end mr-8 mt-3'>
                             <div className='flex items-center gap-2'>
                                 <p className='font-medium text-[#000000] font-Kumbh text-[14px]'>Points:</p>
-                                <div className='bg-[#fff] w-[80px] h-[26px] flex items- justify-center'>
-                                <input 
-                                    className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
-                                    placeholder={option?.point || 0}
-                                    onChange={(e) => handlePointsChange(e)}
-                                    name='point'
-                                    type='number'
-                                    contentEditable
-                                    value={option?.points}
-                                />
+                                <div className={`${edit ? "bg-[#fff]" : "bg-transparent"} w-[80px] h-[26px] flex items- justify-center`}>
+                                  <input 
+                                      className='font-Kumbh w-full outline-none p-2 text-[#000] bg-transparent'
+                                      placeholder={option?.point || 0}
+                                      onChange={(e) => handlePointsChange(e)}
+                                      name='point'
+                                      type='number'
+                                      contentEditable
+                                      value={option?.points}
+                                  />
                                 </div>
                             </div>
                         </div>
