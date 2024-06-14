@@ -24,10 +24,15 @@ const Sidebar = () => {
             <p className='text-[11px] font-hanken'>Questions</p>
         </div>
 
-        <div className='flex flex-col cursor-pointer items-center'>
+        <div className='flex flex-col cursor-pointer items-center' onClick={() => navigate("/customer")}>
+            <img src={Report} alt='Report' className='w-[18px] h-[20px]' />
+            <p className='text-[11px] font-hanken'>Customer</p>
+        </div>
+
+        {/* <div className='flex flex-col cursor-pointer items-center'>
             <img src={Report} alt='Report' className='w-[18px] h-[20px]' />
             <p className='text-[11px] font-hanken'>Media</p>
-        </div>
+        </div> */}
 
         <div className='flex flex-col cursor-pointer items-center'>
             <img src={Report} alt='Report' className='w-[18px] h-[20px]' />
