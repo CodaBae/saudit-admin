@@ -75,6 +75,15 @@ const Customer = () => {
             status: "Inactive",
             login: "7 days ago"
         },
+        {
+            name: "Heathrow",
+            date: "Feb 13, 2024",
+            billStatus: "Unpaid",
+            access: "3 Members",
+            sub: "March 13, 2025",
+            status: "Inactive",
+            login: "7 days ago"
+        },
     ]
 
   return (
