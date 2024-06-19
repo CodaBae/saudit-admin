@@ -202,7 +202,7 @@ const ViewQuestions = () => {
                         {allQuestions?.map((item, index) => (
                             <React.Fragment key={index}>
                                 <tr className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer'>
-                                    <td className='h-[55px] flex items-center gap-3 '>
+                                    <td className='h-[55px] flex items-center gap-3 '  onClick={() => navigate(`/viewQuestions/${item?._id}`, { state: item})}>
                                         <p className='text-sm font-kumbh'>Question {index + 1}</p>
                                     </td>
                                     <td className='h-[55px] px-4 '>
