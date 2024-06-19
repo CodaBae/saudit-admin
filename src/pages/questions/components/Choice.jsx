@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { GoPlus } from "react-icons/go";
-import { FaPlus } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 import { Switch } from 'antd';
 
 import ModalPop from '../../../components/modalPop';
@@ -60,6 +60,11 @@ const Choice = ({
   const handleDelete = () => {
     onDelete(choiceId);
 };
+
+const handleRemove = (optionId, e) => {
+  const newOptions = addNewOption.filter(option => option.id !== optionId);
+  setAddNewOption(newOptions);
+}
 
 
 const handleOptionChange = (optionId, e) => {
@@ -161,6 +166,10 @@ const handlePointsChange = (e) => {
                 <button className='bg-[#00BA78] flex items-center gap-1 w-[62px] h-[50px] rounded-sm p-2' onClick={() => setShowTip(true)}>
                   <FaPlus className="text-[#fff] w-[11px] h-[11px] font-Kumbh"/>
                   <p className='text-[#fff]'>Tip</p>
+                </button>
+                <button className='bg-[#f00] flex items-center gap-1 w-[62px] h-[50px] rounded-sm p-2' onClick={(e) => handleRemove(item.id, e)}>
+                  <FaMinus className="text-[#fff] w-[20px] h-[11px] font-Kumbh"/>
+                  <p className='text-[#fff]'>Delete</p>
                 </button>
                 {/* Additional buttons and inputs for tips and sub-questions */}
               </div>
