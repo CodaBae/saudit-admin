@@ -145,37 +145,7 @@ const ViewQuestions = () => {
                                     <td className='h-[55px] px-4 '>
                                         <p className='text-base text-[#9F9F9F] font-medium font-kumbh'>2 days ago</p>
                                     </td>
-                                </tr>
-                                {/* {visibleSubitems[index] && item?.options?.[index]?.nextQuestion?.nextQuestion?.map((subItem, subIndex) => {
-                                    console.log(subItem, "subItem")
-                                    return (
-                                        <tr key={subIndex} className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer' onClick={() => navigate(`/viewQuestions/${item?._id}`, { state: item })}>
-                                            <td className='h-[55px] flex items-center gap-3 '>
-                                                <p className='text-sm font-kumbh'>Question {subItem + 21}</p>
-                                            </td>
-                                            <td className='h-[55px] px-4 '>
-                                                <p className='text-sm font-kumbh'>{subItem?.sector}</p>
-                                            </td>
-                                            <td className='h-[55px] px-4 '>
-                                                <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{subItem?.text?.slice(0, 20)}</p>
-                                            </td>
-                                            <td className='h-[55px] px-4'>
-                                                <div className='bg-[#EBFCED] w-[36px] h-[31px] rounded-lg flex items-center justify-center'>
-                                                    <p className='text-sm font-kumbh'>{subItem?.options?.length}</p>
-                                                </div>
-                                            </td>
-                                            <td className='h-[55px] px-4 '>
-                                                <div className='flex items-center gap-1.5'>
-                                                    <p className='text-base font-kumbh font-medium '>View</p>
-                                                    <img src={ArrowDown} alt='ArrowDown' className='w-[14px] h-[7px]' />
-                                                </div>
-                                            </td>
-                                            <td className='h-[55px] px-4 '>
-                                                <p className='text-base text-[#9F9F9F] font-medium font-kumbh'>2 days ago</p>
-                                            </td>
-                                        </tr>
-                                    )
-})} */}                         
+                                </tr>                         
                                 {visibleSubitems[index] && item?.options.map((option, subIndex) =>
                                     renderSubQuestions(option?.nextQuestion?.nextQuestion, subIndex)
                                 )}
