@@ -51,7 +51,7 @@ const ViewQuestions = () => {
 
         return (
             <React.Fragment key={nextQuestion?._id}>
-                <tr className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer' onClick={() => navigate(`/viewQuestions/${nextQuestion._id}`, { state: nextQuestion })}>
+                <tr className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer' >
                     <td className='h-[55px] flex items-center gap-3 '>
                         <p className='text-sm font-kumbh'>Question {`1.${baseIndex + 1}`}</p>
                     </td>
@@ -67,13 +67,19 @@ const ViewQuestions = () => {
                         </div>
                     </td>
                     <td className='h-[55px] px-4 '>
-                        <div className='flex items-center gap-1.5'>
+                        <p className='text-base font-kumbh font-medium '>No sub Qsn</p>
+                        {/* <div className='flex items-center gap-1.5'>
                             <p className='text-base font-kumbh font-medium '>View</p>
-                            {/* <img src={ArrowDown} alt='ArrowDown' className='w-[14px] h-[7px]' /> */}
-                        </div>
+                            <img src={ArrowDown} alt='ArrowDown' className='w-[14px] h-[7px]' />
+                        </div> */}
                     </td>
                     <td className='h-[55px] px-4 '>
                         <p className='text-base text-[#9F9F9F] font-medium font-kumbh'>2 days ago</p>
+                    </td>
+                    <td className='h-[55px] px-4 ' onClick={() => navigate(`/viewQuestions/${nextQuestion._id}`, { state: nextQuestion })}>
+                        <div className='flex items-center gap-1.5'>
+                            <p className='text-base font-kumbh font-medium '>View</p>
+                        </div>
                     </td>
                 </tr>
                 {nextQuestion?.options?.map((option, subIndex) => 
@@ -116,13 +122,18 @@ const ViewQuestions = () => {
                             <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
                                 Last edited
                             </th>
+                            <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
+                                View Qsn
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {allQuestions?.map((item, index) => (
+                        {allQuestions?.map((item, index) => {
+                      
+                        return (
                             <React.Fragment key={index}>
                                 <tr className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer'>
-                                    <td className='h-[55px] flex items-center gap-3 '  onClick={() => navigate(`/viewQuestions/${item?._id}`, { state: item})}>
+                                    <td className='h-[55px] flex items-center gap-3 '  >
                                         <p className='text-sm font-kumbh'>Question {index + 1}</p>
                                     </td>
                                     <td className='h-[55px] px-4 '>
@@ -136,21 +147,33 @@ const ViewQuestions = () => {
                                             <p className='text-sm font-kumbh'>{item?.options?.length}</p>
                                         </div>
                                     </td>
-                                    <td className='h-[55px] px-4 ' onClick={() => toggleSubitems(index)}>
+                                    <td className='h-[55px] px-4 ' onClick={() => item.options.some(option => option.nextQuestion) && toggleSubitems(index)}>
                                         <div className='flex items-center gap-1.5'>
-                                            <p className='text-base font-kumbh font-medium '>View</p>
-                                            <img src={ArrowDown} alt='ArrowDown' className={`w-[14px] h-[7px] transform ${visibleSubitems[index] ? 'rotate-180' : ''}`} />
+                                            {item.options.some(option => option.nextQuestion) ? (
+                                                <>
+                                                    <p className='text-base font-kumbh font-medium '>View</p>
+                                                    <img src={ArrowDown} alt='ArrowDown' className={`w-[14px] h-[7px] transform ${visibleSubitems[index] ? 'rotate-180' : ''}`} />
+                                                </>
+                                            ) : (
+                                                <p className='text-base font-kumbh font-medium '>No sub Qsn</p>
+                                            )}
                                         </div>
                                     </td>
                                     <td className='h-[55px] px-4 '>
                                         <p className='text-base text-[#9F9F9F] font-medium font-kumbh'>2 days ago</p>
+                                    </td>
+                                    <td className='h-[55px] px-4 ' onClick={() => navigate(`/viewQuestions/${item?._id}`, { state: item})}>
+                                        <div className='flex items-center gap-1.5'>
+                                            <p className='text-base font-kumbh font-medium '>View</p>
+                                        </div>
                                     </td>
                                 </tr>                         
                                 {visibleSubitems[index] && item?.options.map((option, subIndex) =>
                                     renderSubQuestions(option?.nextQuestion?.nextQuestion, subIndex)
                                 )}
                             </React.Fragment>
-                        ))}
+                        )
+                        })}
                     </tbody>
                 </table>
             </>
