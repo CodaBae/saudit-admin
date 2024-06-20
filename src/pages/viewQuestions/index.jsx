@@ -149,7 +149,7 @@ const ViewQuestions = () => {
                                     </td>
                                     <td className='h-[55px] px-4 ' onClick={() => item.options.some(option => option.nextQuestion) && toggleSubitems(index)}>
                                         <div className='flex items-center gap-1.5'>
-                                            {item.options.some(option => option.nextQuestion) ? (
+                                            {item.options.some(option =>  option?.nextQuestion?.nextQuestion) ? (
                                                 <>
                                                     <p className='text-base font-kumbh font-medium '>View</p>
                                                     <img src={ArrowDown} alt='ArrowDown' className={`w-[14px] h-[7px] transform ${visibleSubitems[index] ? 'rotate-180' : ''}`} />
