@@ -18,10 +18,22 @@ const Customer = () => {
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(false)
     const [editLoading, setEditLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; // You can change this to any number you prefer
 
     const handleCheckboxChange = (index) => {
         setCheckedRows(prev => ({ ...prev, [index]: !prev[index] }));
     };
+
+     // Calculate total pages
+     const totalPages = Math.ceil(companyData?.length / itemsPerPage);
+
+     // Get current items for the page
+     const currentData = companyData?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+ 
+     const handlePageChange = (pageNumber) => {
+         setCurrentPage(pageNumber);
+     };
 
 
 
@@ -116,7 +128,7 @@ const Customer = () => {
                             Actions
                         </th>
                     </tr>
-                    {companyData?.map((item, index) => (
+                    {currentData?.map((item, index) => (
                         <tr key={index} className={`${checkedRows[index] ? "bg-[#EEEEEE]" : "bg-transparent"} h-[55px] border-b border-grey-100`}>
                             <td className='h-[55px] w-[180px] flex items-center gap-3 '>
                                 <input 
@@ -161,6 +173,17 @@ const Customer = () => {
                         </tr>
                     ))}
                 </table>
+                <div className="flex justify-center mt-4">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-gray-300' : 'bg-gray-200'}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </>
         }
         <ModalPop isOpen={openModal}>

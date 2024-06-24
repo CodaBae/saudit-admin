@@ -14,6 +14,9 @@ const ViewQuestions = () => {
     const [filteredQuestions, setFilteredQuestions] = useState([])
 
     const [visibleSubitems, setVisibleSubitems] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; // You can change this to any number you prefer
+
 
     const toggleSubitems = (index) => {
         setVisibleSubitems((prev) => ({
@@ -47,26 +50,6 @@ const ViewQuestions = () => {
         getAllQuestions()
     }, [])
 
-
-
-
-    // const checkQuestion = allQuestions?.filter((item) => {
-    //     console.log(item?.options, "lamb")
-    //     item?.options?.map((i, index) => {
-    //         console.log(i, "basket")
-    //         // if(i._id === i?.nextQuestion?.nextQuestion._id) {
-    //         //     return null
-    //         // }
-    //         // else {
-    //         //     return i
-    //         // }
-    //     })
-    // //    if(item._id === item?.options?.nextQuestion?.nextQuestion._id) {
-    // //         return null
-    // //    } else {
-    // //     return item
-    // //    }
-    // })
 
     // Function to recursively collect all subquestion IDs
 const collectSubQuestionIds = (questions) => {
@@ -104,9 +87,16 @@ allQuestions.forEach(question => {
 
 console.log(JSON.stringify(uniqueQuestions, null, 2));
 
+ // Calculate total pages
+ const totalPages = Math.ceil(uniqueQuestions?.length / itemsPerPage);
 
+ // Get current items for the page
+ const currentData = uniqueQuestions?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
-    // console.log(checkQuestion, "checkQuestion")
+ const handlePageChange = (pageNumber) => {
+     setCurrentPage(pageNumber);
+ };
+
 
     const renderSubQuestions = (nextQuestion, baseIndex) => {
         if (!nextQuestion) return null;
@@ -190,7 +180,7 @@ console.log(JSON.stringify(uniqueQuestions, null, 2));
                                 </tr>
                             </thead>
                             <tbody>
-                                {uniqueQuestions?.map((item, index) => {
+                                {currentData?.map((item, index) => {
 
                                     return (
                                         <React.Fragment key={index}>
@@ -238,6 +228,17 @@ console.log(JSON.stringify(uniqueQuestions, null, 2));
                                 })}
                             </tbody>
                         </table>
+                        <div className="flex justify-center mt-4">
+                            {Array.from({ length: totalPages }, (_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePageChange(index + 1)}
+                                    className={`px-3 py-1 mx-1 ${currentPage === index + 1 ? 'bg-gray-300' : 'bg-gray-200'}`}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))}
+                        </div>
                     </>
             }
         </div>
