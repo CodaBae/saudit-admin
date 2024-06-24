@@ -16,6 +16,7 @@ const Customer = () => {
     const [data, setData] = useState([])
     const [companyData, setCompanyData] = useState([])
     const [loading, setLoading] = useState(false)
+    const [dataLoading, setDataLoading] = useState(false)
     const [editLoading, setEditLoading] = useState(false)
 
     const handleCheckboxChange = (index) => {
@@ -25,13 +26,16 @@ const Customer = () => {
 
 
     const getAllUsers = async () => {
+        setDataLoading(true)
         await axios.get("https://saudit-jheg.onrender.com/auth/getusers")
         .then((res) => {
             console.log(res, "fish")
             setCompanyData(res?.data)
+            setDataLoading(false)
         })
         .catch((err) => {
             console.log(err, "lappy")
+            setLoading(false)
         })
     }
 
@@ -84,7 +88,7 @@ const Customer = () => {
             </div>
         </div>
         {
-            loading ?
+            loading || dataLoading ?
             <Skeleton variant="rectangular" width={1185} height={1000} style={{ backgroundColor: 'rgba(0,0,0, 0.06)' }} />
             :
             <>
