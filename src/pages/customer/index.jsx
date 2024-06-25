@@ -134,7 +134,7 @@ const Customer = () => {
                                 Actions
                             </th>
                         </tr>
-                        {currentData.map((item, index) => (
+                        {currentData?.length > 0 ? currentData?.map((item, index) => (
                             <tr key={index} className={`${checkedRows[index] ? "bg-[#EEEEEE]" : "bg-transparent"} h-[55px] border-b border-grey-100`}>
                                 <td className='h-[55px] w-[180px] flex items-center gap-3 '>
                                     <input 
@@ -172,7 +172,21 @@ const Customer = () => {
                                     </div>
                                 </td>
                             </tr>
-                        ))}
+                        )) : (
+                            <tr className='h-[654px] bg-white border-t border-grey-100'>
+                                <td colSpan="8" className="relative">
+                                    <div className='absolute inset-0 flex items-center justify-center'>
+                                        <div className='flex flex-col gap-2 items-center'>
+                                            {/* <img src={Empty} alt='empty' className='w-[159px] h-[103px]'/> */}
+                                            <p className='text-[#0C1322] font-medium text-[20px] font-inter'>No Customers here.</p>
+                                            <p>Oops! Nothing to see here.</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+    
+                        )
+                    }
                     </table>
                     <div className="flex justify-center mt-4">
                         {Array.from({ length: totalPages }, (_, index) => (

@@ -180,7 +180,7 @@ console.log(JSON.stringify(uniqueQuestions, null, 2));
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentData?.map((item, index) => {
+                                {currentData?.length > 0 ? currentData?.map((item, index) => {
 
                                     return (
                                         <React.Fragment key={index}>
@@ -225,7 +225,21 @@ console.log(JSON.stringify(uniqueQuestions, null, 2));
                                             )}
                                         </React.Fragment>
                                     )
-                                })}
+                                }): (
+                                    <tr className='h-[654px] bg-white border-t border-grey-100'>
+                                        <td colSpan="8" className="relative">
+                                            <div className='absolute inset-0 flex items-center justify-center'>
+                                                <div className='flex flex-col gap-2 items-center'>
+                                                    {/* <img src={Empty} alt='empty' className='w-[159px] h-[103px]'/> */}
+                                                    <p className='text-[#0C1322] font-medium text-[20px] font-inter'>No Questions here.</p>
+                                                    <p>Oops! Nothing to see here.</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+            
+                                )
+                                }
                             </tbody>
                         </table>
                         <div className="flex justify-center mt-4">
