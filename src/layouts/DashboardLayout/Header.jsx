@@ -6,7 +6,7 @@ import Message from "../../assets/svg/message.svg"
 
 const Header = () => {
   return (
-    <div className='flex justify-between pl-[24px] py-[40px] pr-[120px] items-center h-[109px] bg-gradient-to-b from-[#E2F5FD] to-[#F5F4F4C4]'>
+    <div className='flex justify-between pl-[24px] z-10 py-[40px] w-full fixed pr-[120px] items-center h-[109px] bg-gradient-to-b from-[#E2F5FD] to-[#F5F4F4C4]'>
         <img src={Logo} alt='Logo' className='' />
         <div className='flex items-center gap-[29px]'>
             <img src={Bell} alt='Bell' className='' />
