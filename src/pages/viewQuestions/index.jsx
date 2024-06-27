@@ -54,12 +54,15 @@ const ViewQuestions = () => {
     // Function to recursively collect all subquestion IDs
 const collectSubQuestionIds = (questions) => {
     const subQuestionIds = new Set();
+
+    console.log(subQuestionIds, "subQuestionIds")
    
     const collect = (question) => {
         if (question.options) {
             question.options.forEach(option => {
+                console.log(option, "kaka")
                 if (option.nextQuestion) {
-                    subQuestionIds.add(option.nextQuestion._id);
+                    subQuestionIds.add(option.nextQuestion.name);
                     // Recursively collect subquestions of the nextQuestion
                     collect(option.nextQuestion);
                 }
@@ -67,25 +70,29 @@ const collectSubQuestionIds = (questions) => {
         }
     };
    
-    questions.forEach(question => collect(question));
+    questions?.forEach(question => collect(question));
     return subQuestionIds;
 };
 
 // Collect all subquestion IDs
 const subQuestionIds = collectSubQuestionIds(allQuestions);
+console.log(subQuestionIds, "subQuestionIds")
 
 // Filter out duplicates and subquestions
 const uniqueQuestions = [];
 const seenTexts = new Set();
 
 allQuestions.forEach(question => {
+    console.log(question, "question")
+   
+    console.log(seenTexts, "seenTexts")
     if (!subQuestionIds.has(question._id) && !seenTexts.has(question.text)) {
         uniqueQuestions.push(question);
         seenTexts.add(question.text);
     }
 });
 
-console.log(JSON.stringify(uniqueQuestions, null, 2));
+// console.log(JSON.stringify(uniqueQuestions, null, 2));
 
  // Calculate total pages
  const totalPages = Math.ceil(uniqueQuestions?.length / itemsPerPage);
@@ -242,7 +249,7 @@ console.log(JSON.stringify(uniqueQuestions, null, 2));
                                 }
                             </tbody>
                         </table>
-                        <div className="flex justify-center mt-4">
+                        <div className="flex justify-center mt-4 mb-10">
                             {Array.from({ length: totalPages }, (_, index) => (
                                 <button
                                     key={index}

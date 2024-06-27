@@ -188,7 +188,7 @@ const Customer = () => {
                         )
                     }
                     </table>
-                    <div className="flex justify-center mt-4">
+                    <div className="flex justify-center mt-1 mb-10">
                         {Array.from({ length: totalPages }, (_, index) => (
                             <button
                                 key={index}
