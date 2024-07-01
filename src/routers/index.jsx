@@ -7,6 +7,7 @@ import ViewQuestions from '../pages/viewQuestions'
 import QuestionsInfo from "../pages/viewQuestions/components/QuestionsInfo"
 import AddSubQuestion from '../pages/viewQuestions/components/AddSubQuestion'
 import Customer from '../pages/customer'
+import Details from '../pages/customer/component/Details'
 
 
 const Routers = () => {
@@ -19,6 +20,7 @@ const Routers = () => {
           <Route path='/viewQuestions/:id' element={<QuestionsInfo />} />
           <Route path="/addSubQuestions" element={<AddSubQuestion />} />
           <Route path="/customer" element={<Customer />} />
+          <Route path="/customer/details" element={<Details />} />
         </Route>
     </Routes>
   )

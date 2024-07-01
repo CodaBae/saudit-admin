@@ -8,6 +8,7 @@ import Search from "../../assets/svg/search.svg"
 import ModalPop from '../../components/modalPop';
 import EditUser from './component/EditUser';
 import { Skeleton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const Customer = () => {
@@ -21,6 +22,8 @@ const Customer = () => {
     const [editLoading, setEditLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+
+    const navigate = useNavigate()
 
     const handleCheckboxChange = (index) => {
         setCheckedRows(prev => ({ ...prev, [index]: !prev[index] }));
@@ -130,19 +133,19 @@ const Customer = () => {
                             <th className="font-medium px-2 text-[18px] text-[#0D0D0D] font-Kumbh text-left">
                                 Last Login
                             </th>
-                            <th className="font-medium px-2 text-[18px] text-[#0D0D0D] font-Kumbh text-left">
+                            {/* <th className="font-medium px-2 text-[18px] text-[#0D0D0D] font-Kumbh text-left">
                                 Actions
-                            </th>
+                            </th> */}
                         </tr>
                         {currentData?.length > 0 ? currentData?.map((item, index) => (
-                            <tr key={index} className={`${checkedRows[index] ? "bg-[#EEEEEE]" : "bg-transparent"} h-[55px] border-b border-grey-100`}>
+                            <tr key={index} className={`${checkedRows[index] ? "bg-[#EEEEEE]" : "bg-transparent"} h-[55px] border-b border-grey-100 cursor-pointer`} onClick={() => navigate("/customer/details", {state: item})}>
                                 <td className='h-[55px] w-[180px] flex items-center gap-3 '>
-                                    <input 
+                                    {/* <input 
                                         type='checkbox' 
                                         className='w-[14px] h-[14px] rounded-lg' 
                                         checked={checkedRows[index] || false}
                                         onChange={() => handleCheckboxChange(index)} 
-                                    />
+                                    /> */}
                                     <p className='text-sm font-kumbh'>{item?.companyName}</p> 
                                 </td>
                                 <td className='h-[55px] px-4'>
@@ -165,12 +168,12 @@ const Customer = () => {
                                 <td className='h-[55px] px-4 '>
                                     <p className='text-xs text-[#9E9E9E] font-kumbh'>{item?.login || "No Data"}</p>
                                 </td>
-                                <td className='h-[55px] px-4 '>
+                                {/* <td className='h-[55px] px-4 '>
                                     <div className='flex items-center gap-2'>
                                         <FaRegEdit className='text-[#818181] w-5 h-5 cursor-pointer' onClick={() => {setOpenModal(true); setData(item)}} />
                                         <MdDeleteForever className='text-[#f00] w-5 h-5 cursor-pointer' onClick={() => {deleteUser(); setData(item)}}/>
                                     </div>
-                                </td>
+                                </td> */}
                             </tr>
                         )) : (
                             <tr className='h-[654px] bg-white border-t border-grey-100'>
