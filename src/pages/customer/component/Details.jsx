@@ -7,6 +7,8 @@ import Key from "../../../assets/svg/key.svg"
 import axios from 'axios'
 import { Skeleton } from '@mui/material'
 import { toast } from 'react-toastify'
+import Drawers from './add/Drawers'
+import AddUser from './add/user/AddUser'
 
 
 const Details = () => {
@@ -14,6 +16,7 @@ const Details = () => {
     const [loading, setLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
     const [data, setData] = useState([]);
+    const [open, setOpen] = useState(false);
     const [text, setText] = useState("");
     const [userData, setUserData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -120,7 +123,7 @@ const Details = () => {
 
         <div className='flex justify-between items-center '>
             <div className='flex items-center gap-[25px]'>
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2' onClick={() => setOpen(true)}>
                     <img src={User} alt='User' />
                     <p className='text-[#000] font-hanken font-medium text-sm'>Add User</p>
                 </div>
@@ -227,6 +230,9 @@ const Details = () => {
                 </div>
             </>
         }
+        <Drawers open={open} setOpen={setOpen}>
+            <AddUser setOpen={setOpen} state={state}/>
+        </Drawers>
     </div>
   )
 }
