@@ -27,6 +27,7 @@ const Details = () => {
     };
 
     const { state } = useLocation()
+    console.log(state, "gapsoa")
     console.log(userData, "fsdoaoe")
 
 

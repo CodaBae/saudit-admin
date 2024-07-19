@@ -56,36 +56,55 @@ const userFunction = [
 ]
 
 const assessment = [
-  { name: "Select assessment category"},
-  { name: "Air Emmissions"},
-  { name: "Waste"},
+  { name: ""},
+  // { name: "Air Emmissions"},
+  // { name: "Waste"},
   { name: "Climate Change"},
-  { name: "Social Sustainability"},
-  { name: "Environmental Sustainability"},
-  { name: "Culture"},
-  { name: "Sustainable Communities"},
-  { name: "Health & Well-Being"},
-  { name: "Investment for Sustainability"},
-  { name: "Education & Stakeholders"},
-  { name: "Biodiversity"},
-  { name: "Governace"},
+  // { name: "Social Sustainability"},
+  // { name: "Environmental Sustainability"},
+  // { name: "Culture"},
+  // { name: "Sustainable Communities"},
+  // { name: "Health & Well-Being"},
+  // { name: "Investment for Sustainability"},
+  // { name: "Education & Stakeholders"},
+  // { name: "Biodiversity"},
+  // { name: "Governace"},
 
 ]
 
 const compliance = [
-  { name: "Select compliance category"},
-  { name: "SDG"},
+  { name: ""},
+  { name: "Regulations & Frameworks"},
   { name: "Standards"},
+  { name: "Guidance & Code of practice"},
 ]
 
 const standards = [
-  { name: "Select Standards"},
+  { name: ""},
   { name: "International"},
+  { name: "Regional"},
+  { name: "Country Specific"},
 ]
 
 const international = [
-  { name: "Select International"},
-  { name: "ISSB S2"},
+  { name: ""},
+  { name: "General"},
+  { name: "IEC"},
+  { name: "ISO"},
+  { name: "Industry Specific"},
+]
+
+const general = [
+  { name: ""},
+  { name: "GRI"},
+  { name: "SASB"},
+  { name: "ISSB"},
+]
+
+const complianceTitle = [
+  {name: ""},
+  {name: "ISSB S1"},
+  {name: "ISSB S2 Climate"}
 ]
 
 const Questions = () => {
@@ -111,6 +130,8 @@ const Questions = () => {
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
   const [standardsSelected, setStandardsSelected] = useState(standards[0])
   const [internationalSelected, setInternationalSelected] = useState(international[0])
+  const [generalSelected, setGeneralSelected] = useState(general[0])
+  const [complianceTitleSelected, setComplianceTitleSelected] = useState(complianceTitle[0])
 
   // Choice Forms
   const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
@@ -212,6 +233,8 @@ const Questions = () => {
         selectComplianceCat: complianceSelected?.name,
         standards: standardsSelected?.name,
         international: internationalSelected?.name,  
+        general: generalSelected?.name,  
+        complianceTitle: complianceTitleSelected?.name,  
         text: optionTitle,
         point: points,
         tips: addNewOption[0]?.optionTips,
@@ -316,6 +339,10 @@ const Questions = () => {
           setStandardsSelected={setStandardsSelected}
           internationalSelected={internationalSelected}
           setInternationalSelected={setInternationalSelected}
+          generalSelected={generalSelected}
+          setGeneralSelected={setGeneralSelected}
+          complianceTitleSelected={complianceTitleSelected}
+          setComplianceTitleSelected={setComplianceTitleSelected}
           sector={sector}
           subSector={subSector}
           sectorType={sectorType}
@@ -325,6 +352,8 @@ const Questions = () => {
           compliance={compliance}
           standards={standards}
           international={international}
+          general={general}
+          complianceTitle={complianceTitle}
         />) 
       }
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}

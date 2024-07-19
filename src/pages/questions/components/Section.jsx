@@ -30,6 +30,10 @@ const Section = ({
     setStandardsSelected,
     internationalSelected,
     setInternationalSelected,
+    generalSelected,
+    setGeneralSelected,
+    complianceTitleSelected,
+    setComplianceTitleSelected,
     sector,
     subSector,
     sectorType,
@@ -38,7 +42,9 @@ const Section = ({
     assessment,
     compliance,
     standards,
-    international
+    international,
+    general,
+    complianceTitle
 }) => {
     const [title, setTitle] = useState("")
     
@@ -297,7 +303,7 @@ const Section = ({
             <Listbox value={assessmentSelected} onChange={setAssessmentSelected}>
                 <div className="relative">
                     <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                        <span className="block truncate font-medium text-[22px] font-Kumbh">{assessmentSelected.name}</span>
+                        <span className="block truncate font-medium text-[22px] font-Kumbh">{assessmentSelected.name || "Select Module"}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <IoIosArrowDown
                                 className=" text-[22px] mr-[36px]"
@@ -343,7 +349,7 @@ const Section = ({
             <Listbox value={complianceSelected} onChange={setComplianceSelected}>
                 <div className="relative">
                     <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                        <span className="block truncate font-medium text-[22px] font-Kumbh">{complianceSelected.name}</span>
+                        <span className="block truncate font-medium text-[22px] font-Kumbh">{complianceSelected.name || "Select sustainability compliance category"}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <IoIosArrowDown
                                 className=" text-[22px] mr-[36px]"
@@ -391,7 +397,7 @@ const Section = ({
                     <Listbox value={standardsSelected} onChange={setStandardsSelected}>
                         <div className="relative">
                             <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                                <span className="block truncate font-medium text-[22px] font-Kumbh">{standardsSelected.name}</span>
+                                <span className="block truncate font-medium text-[22px] font-Kumbh">{standardsSelected.name || "Compliance Jurisdiction"}</span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                     <IoIosArrowDown
                                         className=" text-[22px] mr-[36px]"
@@ -441,7 +447,7 @@ const Section = ({
                     <Listbox value={internationalSelected} onChange={setInternationalSelected}>
                         <div className="relative">
                             <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                                <span className="block truncate font-medium text-[22px] font-Kumbh">{internationalSelected.name}</span>
+                                <span className="block truncate font-medium text-[22px] font-Kumbh">{internationalSelected.name || "Compliance Scheme"}</span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                     <IoIosArrowDown
                                         className=" text-[22px] mr-[36px]"
@@ -457,6 +463,106 @@ const Section = ({
                             >
                                 <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                     {international.map((item, index) => (
+                                        <Listbox.Option
+                                            key={index}
+                                            className={({ active }) =>
+                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                                active ? 'bg-blue-100 text-amber-900' : 'text-gray-900'
+                                                }`
+                                            }
+                                            value={item}
+                                        >
+                                        {({ selected }) => (
+                                            <>
+                                                <span
+                                                    className={`block truncate text-lg ${
+                                                    selected ? 'font-medium' : 'font-normal'
+                                                    }`}
+                                                >
+                                                    {item.name}
+                                                </span>
+                                            </>
+                                        )}
+                                        </Listbox.Option>
+                                    ))}
+                                </Listbox.Options>
+                            </Transition>
+                        </div>
+                    </Listbox>
+                )
+            }
+
+            {
+                internationalSelected?.name === "General" && (
+                    <Listbox value={generalSelected} onChange={setGeneralSelected}>
+                        <div className="relative">
+                            <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
+                                <span className="block truncate font-medium text-[22px] font-Kumbh">{generalSelected.name || "General - Compliance body"}</span>
+                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                    <IoIosArrowDown
+                                        className=" text-[22px] mr-[36px]"
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                            </Listbox.Button>
+                            <Transition
+                                as={Fragment}
+                                leave="transition ease-in duration-100"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                            >
+                                <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                    {general.map((item, index) => (
+                                        <Listbox.Option
+                                            key={index}
+                                            className={({ active }) =>
+                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                                active ? 'bg-blue-100 text-amber-900' : 'text-gray-900'
+                                                }`
+                                            }
+                                            value={item}
+                                        >
+                                        {({ selected }) => (
+                                            <>
+                                                <span
+                                                    className={`block truncate text-lg ${
+                                                    selected ? 'font-medium' : 'font-normal'
+                                                    }`}
+                                                >
+                                                    {item.name}
+                                                </span>
+                                            </>
+                                        )}
+                                        </Listbox.Option>
+                                    ))}
+                                </Listbox.Options>
+                            </Transition>
+                        </div>
+                    </Listbox>
+                )
+            }
+
+            {
+                generalSelected?.name === "ISSB" && (
+                    <Listbox value={complianceTitleSelected} onChange={setComplianceTitleSelected}>
+                        <div className="relative">
+                            <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
+                                <span className="block truncate font-medium text-[22px] font-Kumbh">{complianceTitleSelected.name || "Compliance title"}</span>
+                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                    <IoIosArrowDown
+                                        className=" text-[22px] mr-[36px]"
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                            </Listbox.Button>
+                            <Transition
+                                as={Fragment}
+                                leave="transition ease-in duration-100"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                            >
+                                <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                    {complianceTitle.map((item, index) => (
                                         <Listbox.Option
                                             key={index}
                                             className={({ active }) =>
