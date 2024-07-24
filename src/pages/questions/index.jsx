@@ -364,7 +364,6 @@ const Questions = () => {
           tips: option.optionTips,
           keyWord: option.optionKeyword
         }))
-        
       }
       // console.log(data, "akpabio")
       // return 
