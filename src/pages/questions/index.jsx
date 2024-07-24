@@ -28,6 +28,7 @@ const subSector = [
   { name: "Sub Sector"},
   { name: 'Railway' },
   { name: 'Marine' },
+  { name: 'Road' },
   { name: 'Air' },
 ]
 
@@ -337,13 +338,13 @@ const Questions = () => {
         sector: sectorSelected?.name, 
         subSector: subSectorSelected?.name,  
         type: typeSelected?.name,
-        industryFuntion: industryFunctionSelected?.name,  
-        userFuntion: userFunctionSelected?.name,  
+        industryFunction: industryFunctionSelected?.name,  
+        userFunction: userFunctionSelected?.name,  
         selectAssessmentCat: assessmentSelected?.name,  
         selectComplianceCat: complianceSelected?.name,
 
         jurisdiction: standardsJurisdictionSelected?.name || regulationsAndFrameworkJurisdictionSelected?.name || guidanceJurisdictionSelected.name,
-        scheme: standardsSchemeSelected?.name || regulationsAndFrameworkSchemeSelected?.name || guidanceSchemeSelected?.name,
+        scheme: standardsSchemeSelected?.name || regulationsAndFrameworkSchemeSelected?.name || regulationsAndFrameworkSchemeSelectedB?.name || guidanceSchemeSelected?.name,
         body: standardBodySelected?.name || regulationsAndFrameworkBodySelected?.name || guidanceBodySelected?.name,
         complianceTitle: standardComplianceTitleSelected?.name || standardComplianceTitleSelectedB?.name || standardComplianceTitleSelectedC?.name || regulationsAndFrameworkTitleSelected?.name || regulationsAndFrameworkTitleSelectedB?.name,
         tsi: regulationsAndFrameworkTSISelected?.name,
@@ -365,7 +366,7 @@ const Questions = () => {
           keyWord: option.optionKeyword
         }))
       }
-      // console.log(data, "akpabio")
+      console.log(data, "akpabio")
       // return 
       await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
         headers: {

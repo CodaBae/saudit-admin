@@ -169,6 +169,9 @@ allQuestions.forEach(question => {
                                     <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
                                         Sector
                                     </th>
+                                    <th className="font-medium pr-2 text-[18px] text-[#000] font-Kumbh text-left">
+                                        Category
+                                    </th>
                                     <th className="font-medium px-2 text-[18px] text-[#000] font-Kumbh text-left">
                                         Question
                                     </th>
@@ -188,7 +191,7 @@ allQuestions.forEach(question => {
                             </thead>
                             <tbody>
                                 {currentData?.length > 0 ? currentData?.map((item, index) => {
-
+                                    console.log(item, "eba")
                                     return (
                                         <React.Fragment key={index}>
                                             <tr className='bg-transparent h-[55px] border-b border-grey-100 cursor-pointer'>
@@ -198,13 +201,14 @@ allQuestions.forEach(question => {
                                                 <td className='h-[55px] px-4 '>
                                                     <p className='text-sm font-kumbh'>{item?.sector}</p>
                                                 </td>
+                                                <td className='h-[55px] px-4'>
+                                                    <p className='text-sm font-kumbh'>{item?.selectComplianceCat || "N/A"}</p>
+                                                </td>
                                                 <td className='h-[55px] px-4 '>
                                                     <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{item?.text?.slice(0, 20)}</p>
                                                 </td>
-                                                <td className='h-[55px] px-4'>
-                                                    <div className='bg-[#EBFCED] w-[36px] h-[31px] rounded-lg flex items-center justify-center'>
-                                                        <p className='text-sm font-kumbh'>{item?.options?.length}</p>
-                                                    </div>
+                                                <td className='h-[55px] px-4 '>
+                                                    <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{item?.text?.slice(0, 20)}</p>
                                                 </td>
                                                 <td className='h-[55px] px-4 ' onClick={() => item.options.some(option => option.nextQuestion) && toggleSubitems(index)}>
                                                     <div className='flex items-center gap-1.5'>
