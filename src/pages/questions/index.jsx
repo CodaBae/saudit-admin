@@ -79,14 +79,16 @@ const compliance = [
   { name: "Guidance & Code of practice"},
 ]
 
-const standards = [
+const standardsJurisdiction = [
   { name: ""},
   { name: "International"},
   { name: "Regional"},
   { name: "Country Specific"},
 ]
 
-const international = [
+// Standards
+
+const standardsScheme = [
   { name: ""},
   { name: "General"},
   { name: "IEC"},
@@ -94,18 +96,106 @@ const international = [
   { name: "Industry Specific"},
 ]
 
-const general = [
+const standardBody = [
   { name: ""},
   { name: "GRI"},
   { name: "SASB"},
   { name: "ISSB"},
 ]
 
-const complianceTitle = [
+const standardComplianceTitle = [
   {name: ""},
   {name: "ISSB S1"},
   {name: "ISSB S2 Climate"}
 ]
+
+const standardComplianceTitleB = [
+  {name: ""},
+  {name: "GRI 302 Energy"},
+  {name: "GRI 303 Water & Effluents"},
+  {name: "GRI 305 Emissions"},
+]
+
+const standardComplianceTitleC = [
+  {name: ""},
+  {name: "SASB: Rail Transportation"},
+  {name: "SASB:Engrg, Construction, Infrastructure"},
+  {name: "SASB:Waste Management"},
+]
+
+// Regulations & Frameworks
+const regulationsAndFrameworkJurisdiction = [
+  { name: ""},
+  { name: "International"},
+  { name: "Regional - Europe"},
+  { name: "Country Specific"},
+]
+
+const regulationsAndFrameworkScheme = [
+  { name: ""},
+  { name: "SDGs"},
+  { name: "ISO"},
+  { name: "Country Specific"},
+]
+
+const regulationsAndFrameworkSchemeB = [
+  { name: ""},
+  { name: "General"},
+  { name: "Industry Specific"},
+]
+
+const regulationsAndFrameworkBody = [
+  { name: ""},
+  { name: "European Railway Agency"},
+  { name: "European Standard"},
+]
+
+const regulationsAndFrameworkTitle = [
+  { name: ""},
+  { name: "Technical Specification for Interopability (TSI)"},
+]
+
+const regulationsAndFrameworkTitleB = [
+  { name: ""},
+  { name: "DIN EN 13848"},
+]
+
+const regulationsAndFrameworkTSI = [
+  { name: ""},
+  { name: "International"},
+  { name: "Energy"},
+  { name: "Rolling Stock"},
+]
+
+// Guidance & Code of practice
+const guidanceJurisdiction = [
+  { name: ""},
+  { name: "International"},
+  { name: "Regional - Europe"},
+  { name: "Country Specific"},
+]
+
+const guidanceScheme = [
+  { name: ""},
+  { name: "General"},
+  { name: "Industry Specific"},
+]
+
+const guidanceBody = [
+  { name: ""},
+  { name: "RSSB"},
+  { name: "ORR/DFT"},
+  { name: "National Technical Specification Notices(NTSNs)"},
+]
+
+const guidanceNTSNs = [
+  { name: ""},
+  { name: "International"},
+  { name: "Energy"},
+  { name: "Rolling Stock"},
+]
+
+
 
 const Questions = () => {
   const [type, setType] = useState(QuestionType.CREATE);
@@ -128,10 +218,30 @@ const Questions = () => {
   const [userFunctionSelected, setUserFunctionSelected] = useState(userFunction[0])
   const [assessmentSelected, setAssessmentSelected] = useState(assessment[0])
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
-  const [standardsSelected, setStandardsSelected] = useState(standards[0])
-  const [internationalSelected, setInternationalSelected] = useState(international[0])
-  const [generalSelected, setGeneralSelected] = useState(general[0])
-  const [complianceTitleSelected, setComplianceTitleSelected] = useState(complianceTitle[0])
+
+  //Standards
+  const [standardsJurisdictionSelected, setStandardsJurisdictionSelected] = useState(standardsJurisdiction[0])
+  const [standardsSchemeSelected, setStandardsSchemeSelected] = useState(standardsScheme[0])
+  const [standardBodySelected, setStandardBodySelected] = useState(standardBody[0])
+  const [standardComplianceTitleSelected, setStandardComplianceTitleSelected] = useState(standardComplianceTitle[0])
+  const [standardComplianceTitleSelectedB, setStandardComplianceTitleSelectedB] = useState(standardComplianceTitleB[0])
+  const [standardComplianceTitleSelectedC, setStandardComplianceTitleSelectedC] = useState(standardComplianceTitleC[0])
+
+  //Regulations And FrameWorks
+  const [regulationsAndFrameworkJurisdictionSelected, setRegulationsAndFrameworkJurisdictionSelected] = useState(regulationsAndFrameworkJurisdiction[0])
+  const [regulationsAndFrameworkSchemeSelected, setRegulationsAndFrameworkSchemeSelected] = useState(regulationsAndFrameworkScheme[0])
+  const [regulationsAndFrameworkSchemeSelectedB, setRegulationsAndFrameworkSchemeSelectedB] = useState(regulationsAndFrameworkSchemeB[0])
+  const [regulationsAndFrameworkBodySelected, setRegulationsAndFrameworkBodySelected] = useState(regulationsAndFrameworkBody[0])
+  const [regulationsAndFrameworkTitleSelected, setRegulationsAndFrameworkTitleSelected] = useState(regulationsAndFrameworkTitle[0])
+  const [regulationsAndFrameworkTitleSelectedB, setRegulationsAndFrameworkTitleSelectedB] = useState(regulationsAndFrameworkTitleB[0])
+  const [regulationsAndFrameworkTSISelected, setRegulationsAndFrameworkTSISelected] = useState(regulationsAndFrameworkTSI[0])
+  
+  //Guidance & Code of practice
+  const [guidanceJurisdictionSelected, setGuidanceJurisdictionSelected] = useState(guidanceJurisdiction[0])
+  const [guidanceSchemeSelected, setGuidanceSchemeSelected] = useState(guidanceScheme[0])
+  const [guidanceBodySelected, setGuidanceBodySelected] = useState(guidanceBody[0])
+  const [guidanceNTSNsSelected, setGuidanceNTSNsSelected] = useState(guidanceNTSNs[0])
+  
 
   // Choice Forms
   const [addNewOption, setAddNewOption] = useState([{ id: 1, optionText: "", optionPoints: 0, optionTips: "", evidenceTitle: "", optionEviQuestion: "", optionKeyword: "", optionImageName: "" }]);
@@ -231,10 +341,18 @@ const Questions = () => {
         userFuntion: userFunctionSelected?.name,  
         selectAssessmentCat: assessmentSelected?.name,  
         selectComplianceCat: complianceSelected?.name,
-        standards: standardsSelected?.name,
-        international: internationalSelected?.name,  
-        general: generalSelected?.name,  
-        complianceTitle: complianceTitleSelected?.name,  
+
+        jurisdiction: standardsJurisdictionSelected?.name || regulationsAndFrameworkJurisdictionSelected?.name || guidanceJurisdictionSelected.name,
+        scheme: standardsSchemeSelected?.name || regulationsAndFrameworkSchemeSelected?.name || guidanceSchemeSelected?.name,
+        body: standardBodySelected?.name || regulationsAndFrameworkBodySelected?.name || guidanceBodySelected?.name,
+        complianceTitle: standardComplianceTitleSelected?.name || standardComplianceTitleSelectedB?.name || standardComplianceTitleSelectedC?.name || regulationsAndFrameworkTitleSelected?.name || regulationsAndFrameworkTitleSelectedB?.name,
+        tsi: regulationsAndFrameworkTSISelected?.name,
+        ntsn: guidanceNTSNsSelected?.name,
+
+        // standards: standardsJurisdictionSelected?.name || regulationsAndFrameworkSelected?.name ,  
+        // international: standardsSchemeSelected?.name,  //Change the body property jurisdiction
+        // general:  "",  // change the body property to scheme        
+        
         text: optionTitle,
         point: points,
         tips: addNewOption[0]?.optionTips,
@@ -247,16 +365,8 @@ const Questions = () => {
           keyWord: option.optionKeyword
         }))
         
-        // [
-        //   {
-        //     text: `${addNewOption[0]?.optionText}`,
-        //     evd: "No evidence",
-        //     evdText:`${evidenceQuestion}`,
-        //     tips: `${keyWord}`
-        //   },
-        // ]
       }
-      console.log(addNewOption, "addNewOption")
+      // console.log(data, "akpabio")
       // return 
       await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
         headers: {
@@ -335,14 +445,45 @@ const Questions = () => {
           setAssessmentSelected={setAssessmentSelected}
           complianceSelected={complianceSelected}
           setComplianceSelected={setComplianceSelected}
-          standardsSelected={standardsSelected}
-          setStandardsSelected={setStandardsSelected}
-          internationalSelected={internationalSelected}
-          setInternationalSelected={setInternationalSelected}
-          generalSelected={generalSelected}
-          setGeneralSelected={setGeneralSelected}
-          complianceTitleSelected={complianceTitleSelected}
-          setComplianceTitleSelected={setComplianceTitleSelected}
+          standardsJurisdictionSelected={standardsJurisdictionSelected}
+          setStandardsJurisdictionSelected={setStandardsJurisdictionSelected}
+          standardsSchemeSelected={standardsSchemeSelected}
+          setStandardsSchemeSelected={setStandardsSchemeSelected}
+          standardBodySelected={standardBodySelected}
+          setStandardBodySelected={setStandardBodySelected}
+          standardComplianceTitleSelected={standardComplianceTitleSelected}
+          setStandardComplianceTitleSelected={setStandardComplianceTitleSelected}
+          standardComplianceTitleSelectedB={standardComplianceTitleSelectedB}
+          setStandardComplianceTitleSelectedB={setStandardComplianceTitleSelectedB}
+          standardComplianceTitleSelectedC={standardComplianceTitleSelectedC}
+          setStandardComplianceTitleSelectedC={setStandardComplianceTitleSelectedC}
+
+          //Regulations and Framework
+          regulationsAndFrameworkJurisdictionSelected={regulationsAndFrameworkJurisdictionSelected}
+          setRegulationsAndFrameworkJurisdictionSelected={setRegulationsAndFrameworkJurisdictionSelected}
+          regulationsAndFrameworkSchemeSelected={regulationsAndFrameworkSchemeSelected}
+          setRegulationsAndFrameworkSchemeSelected={setRegulationsAndFrameworkSchemeSelected}
+          regulationsAndFrameworkSchemeSelectedB={regulationsAndFrameworkSchemeSelectedB}
+          setRegulationsAndFrameworkSchemeSelectedB={setRegulationsAndFrameworkSchemeSelectedB}
+          regulationsAndFrameworkBodySelected={regulationsAndFrameworkBodySelected}
+          setRegulationsAndFrameworkBodySelected={setRegulationsAndFrameworkBodySelected}
+          regulationsAndFrameworkTitleSelected={regulationsAndFrameworkTitleSelected}
+          setRegulationsAndFrameworkTitleSelected={setRegulationsAndFrameworkTitleSelected}
+          regulationsAndFrameworkTitleSelectedB={regulationsAndFrameworkTitleSelectedB}
+          setRegulationsAndFrameworkTitleSelectedB={setRegulationsAndFrameworkTitleSelectedB}
+          regulationsAndFrameworkTSISelected={regulationsAndFrameworkTSISelected}
+          setRegulationsAndFrameworkTSISelected={setRegulationsAndFrameworkTSISelected}
+
+          // Guidance & Code of practice
+          guidanceJurisdictionSelected={guidanceJurisdictionSelected}
+          setGuidanceJurisdictionSelected={setGuidanceJurisdictionSelected}
+          guidanceSchemeSelected={guidanceSchemeSelected}
+          setGuidanceSchemeSelected={setGuidanceSchemeSelected}
+          guidanceBodySelected={guidanceBodySelected}
+          setGuidanceBodySelected={setGuidanceBodySelected}
+          guidanceNTSNsSelected={guidanceNTSNsSelected}
+          setGuidanceNTSNsSelected={setGuidanceNTSNsSelected}
+
           sector={sector}
           subSector={subSector}
           sectorType={sectorType}
@@ -350,10 +491,31 @@ const Questions = () => {
           userFunction={userFunction}
           assessment={assessment}
           compliance={compliance}
-          standards={standards}
-          international={international}
-          general={general}
-          complianceTitle={complianceTitle}
+
+          //Standards
+          standardsJurisdiction={standardsJurisdiction}
+          standardsScheme={standardsScheme}
+          standardBody={standardBody}
+          standardComplianceTitle={standardComplianceTitle}
+          standardComplianceTitleB={standardComplianceTitleB}
+          standardComplianceTitleC={standardComplianceTitleC}
+
+          //Regulations and Framework
+          regulationsAndFrameworkJurisdiction={regulationsAndFrameworkJurisdiction}
+          regulationsAndFrameworkScheme={regulationsAndFrameworkScheme}
+          regulationsAndFrameworkSchemeB={regulationsAndFrameworkSchemeB}
+          regulationsAndFrameworkBody={regulationsAndFrameworkBody}
+          regulationsAndFrameworkTitle={regulationsAndFrameworkTitle}
+          regulationsAndFrameworkTitleB={regulationsAndFrameworkTitleB}
+          regulationsAndFrameworkTSI={regulationsAndFrameworkTSI}
+
+
+          //Guidance & Code of practice
+          guidanceJurisdiction={guidanceJurisdiction}
+          guidanceScheme={guidanceScheme}
+          guidanceBody={guidanceBody}
+          guidanceNTSNs={guidanceNTSNs}
+
         />) 
       }
       {/* {sectionsB.map(sectionB => <SectionB  key={sectionB.id} sectionBId={sectionB.id} onDelete={handleDeleteSectionB}   />)} */}

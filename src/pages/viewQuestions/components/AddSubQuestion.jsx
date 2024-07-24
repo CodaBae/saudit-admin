@@ -133,10 +133,18 @@ const submitForm = async () => {
     userFuntion: state?.userFuntion,  
     selectAssessmentCat: state?.selectAssessmentCat,  
     selectComplianceCat: state?.selectComplianceCat,
+
     standards: state?.standards || "",
     international: state?.international || "",  
     general: state?.general || "",  
-    complianceTitle: state?.complianceTitle || "",   
+
+    jurisdiction: state?.jurisdiction || "",  
+    scheme: state?.scheme || "", 
+    body: state?.body || "", 
+    tsi: state?.tsi || "", 
+    ntsn: state?.ntsn || "",
+    complianceTitle: state?.complianceTitle || "", 
+
     text: optionTitle,
     tips: addNewOption?.[0]?.optionTips,        //optionTipChange,
     point: points,
