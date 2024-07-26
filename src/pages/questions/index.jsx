@@ -20,12 +20,12 @@ const QuestionType = {
 };
 
 const sector = [
-  { name: 'Sector' },
+  { name: '' },
   { name: 'Transport' },
 ]
 
 const subSector = [
-  { name: "Sub Sector"},
+  { name: ""},
   { name: 'Railway' },
   { name: 'Marine' },
   { name: 'Road' },
@@ -33,14 +33,14 @@ const subSector = [
 ]
 
 const sectorType = [
-  { name: "Type"},
+  { name: ""},
   { name: 'Light Rail' },
   { name: 'Heavy Rail' },
   { name: 'Metro' },
 ]
 
 const industryFunction = [
-  { name: "Industry function"},
+  { name: ""},
   { name: "Railway Owner"},
   { name: 'Railway Operator' },
   { name: 'Railway Maintainer' },
@@ -49,7 +49,7 @@ const industryFunction = [
 ]
 
 const userFunction = [
-  { name: "User Function"},
+  { name: ""},
   { name: "Executive"},
   { name: 'Senior Management' },
   { name: 'Company admin' },
@@ -216,7 +216,9 @@ const Questions = () => {
   const [subSectorSelected, setSubSectorSelected] = useState(subSector[0])
   const [typeSelected, setTypeSelected] = useState(sectorType[0])
   const [industryFunctionSelected, setIndustryFunctionSelected] = useState(industryFunction[0])
+  // const [industryFunctionError, setIndustryFunctionError] = useState("")
   const [userFunctionSelected, setUserFunctionSelected] = useState(userFunction[0])
+  // const [userFunctionError, setUserFunctionError] = useState("")
   const [assessmentSelected, setAssessmentSelected] = useState(assessment[0])
   const [complianceSelected, setComplianceSelected] = useState(compliance[0])
 
@@ -334,63 +336,72 @@ const Questions = () => {
 
   const submitForm = async () => {
     console.log(addNewOption, "addNewOption")
-      const data = {
-        sector: sectorSelected?.name, 
-        subSector: subSectorSelected?.name,  
-        type: typeSelected?.name,
-        industryFunction: industryFunctionSelected?.name,  
-        userFunction: userFunctionSelected?.name,  
-        selectAssessmentCat: assessmentSelected?.name,  
-        selectComplianceCat: complianceSelected?.name,
 
-        jurisdiction: standardsJurisdictionSelected?.name || regulationsAndFrameworkJurisdictionSelected?.name || guidanceJurisdictionSelected.name,
-        scheme: standardsSchemeSelected?.name || regulationsAndFrameworkSchemeSelected?.name || regulationsAndFrameworkSchemeSelectedB?.name || guidanceSchemeSelected?.name,
-        body: standardBodySelected?.name || regulationsAndFrameworkBodySelected?.name || guidanceBodySelected?.name,
-        complianceTitle: standardComplianceTitleSelected?.name || standardComplianceTitleSelectedB?.name || standardComplianceTitleSelectedC?.name || regulationsAndFrameworkTitleSelected?.name || regulationsAndFrameworkTitleSelectedB?.name,
-        tsi: regulationsAndFrameworkTSISelected?.name,
-        ntsn: guidanceNTSNsSelected?.name,
+    const data = {
+      sector: sectorSelected?.name, 
+      subSector: subSectorSelected?.name,  
+      type: typeSelected?.name,
+      industryFunction: industryFunctionSelected?.name,  
+      userFunction: userFunctionSelected?.name,  
+      selectAssessmentCat: assessmentSelected?.name,  
+      selectComplianceCat: complianceSelected?.name,
 
-        // standards: standardsJurisdictionSelected?.name || regulationsAndFrameworkSelected?.name ,  
-        // international: standardsSchemeSelected?.name,  //Change the body property jurisdiction
-        // general:  "",  // change the body property to scheme        
-        
-        text: optionTitle,
-        point: points,
-        tips: addNewOption[0]?.optionTips,
-        options: addNewOption.map(option => ({
-          text: option.optionText,
-          point: Number(option.optionPoints),
-          evd: option?.optionImageName?.url,
-          evdText: option.optionEviQuestion,
-          tips: option.optionTips,
-          keyWord: option.optionKeyword
-        }))
+      jurisdiction: standardsJurisdictionSelected?.name || regulationsAndFrameworkJurisdictionSelected?.name || guidanceJurisdictionSelected.name,
+      scheme: standardsSchemeSelected?.name || regulationsAndFrameworkSchemeSelected?.name || regulationsAndFrameworkSchemeSelectedB?.name || guidanceSchemeSelected?.name,
+      body: standardBodySelected?.name || regulationsAndFrameworkBodySelected?.name || guidanceBodySelected?.name,
+      complianceTitle: standardComplianceTitleSelected?.name || standardComplianceTitleSelectedB?.name || standardComplianceTitleSelectedC?.name || regulationsAndFrameworkTitleSelected?.name || regulationsAndFrameworkTitleSelectedB?.name,
+      tsi: regulationsAndFrameworkTSISelected?.name,
+      ntsn: guidanceNTSNsSelected?.name,
+
+      // standards: standardsJurisdictionSelected?.name || regulationsAndFrameworkSelected?.name ,  
+      // international: standardsSchemeSelected?.name,  //Change the body property jurisdiction
+      // general:  "",  // change the body property to scheme        
+      
+      text: optionTitle,
+      point: points,
+      tips: addNewOption[0]?.optionTips,
+      options: addNewOption.map(option => ({
+        text: option.optionText,
+        point: Number(option.optionPoints),
+        evd: option?.optionImageName?.url,
+        evdText: option.optionEviQuestion,
+        tips: option.optionTips,
+        keyWord: option.optionKeyword
+      }))
+    }
+    console.log(data, "akpabio")
+    // return 
+    await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
+      headers: {
+        "Content-Type": 'application/json',
       }
-      console.log(data, "akpabio")
-      // return 
-      await axios.post("https://saudit-jheg.onrender.com/surveys/questions", data, {
-        headers: {
-          "Content-Type": 'application/json',
-        }
+    })
+    .then((res) => {
+      console.log(res, "res")
+      toast(`${res?.data?.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
       })
-      .then((res) => {
-        console.log(res, "res")
-        toast(`${res?.data?.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: true,
-        })
-        // window.location.reload()
+      // window.location.reload()
 
+    })
+    .catch((err) => {
+      console.log(err, 'err')
+      toast(`${err?.response?.data?.message}`, {
+        position: "top-right",
+        autoClose: 5000,
+        closeOnClick: true,
       })
-      .catch((err) => {
-        console.log(err, 'err')
-        toast(`${err?.response?.data?.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: true,
-        })
-      })
+    })
+    // if (userFunctionSelected?.name === "") {
+    //     setUserFunctionError("User Function is Required")
+    // } else {
+    //   return
+   
+
+    // }
+
 
   }
 
@@ -457,6 +468,7 @@ const Questions = () => {
           setStandardComplianceTitleSelectedB={setStandardComplianceTitleSelectedB}
           standardComplianceTitleSelectedC={standardComplianceTitleSelectedC}
           setStandardComplianceTitleSelectedC={setStandardComplianceTitleSelectedC}
+          // userFunctionError={userFunctionError}
 
           //Regulations and Framework
           regulationsAndFrameworkJurisdictionSelected={regulationsAndFrameworkJurisdictionSelected}

@@ -196,7 +196,7 @@ const UploadEvidence = ({ handleClose, setAddNewOption, addNewOption }) => {
             </div>
         ))}
 
-        <div className='flex justify-end w-full mt-[0px]'>
+        <div className='flex justify-end w-full hidden mt-[0px]'>
             <div className='flex items-center gap-2 mr-10'>
                 <p className='text-[#000] font-Kumbh font-medium text-[14px]'>Show Evidence</p>
                 <Switch size="small"  onChange={onChange}/>

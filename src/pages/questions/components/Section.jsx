@@ -51,6 +51,7 @@ const Section = ({
     standardComplianceTitle,
     standardComplianceTitleB,
     standardComplianceTitleC,
+    // userFunctionError,
 
     //Regulations And Frameworks
     regulationsAndFrameworkJurisdictionSelected,
@@ -116,7 +117,7 @@ const Section = ({
             <Listbox value={sectorSelected} onChange={setSectorSelected}>
                 <div className="relative">
                     <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                        <span className="block truncate font-medium text-[22px] font-Kumbh">{sectorSelected.name}</span>
+                        <span className="block truncate font-medium text-[22px] font-Kumbh">{sectorSelected.name || "Sector"}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <IoIosArrowDown
                                 className=" text-[22px] mr-[36px]"
@@ -164,7 +165,7 @@ const Section = ({
                 <Listbox value={subSectorSelected} onChange={setSubSectorSelected}>
                     <div className="relative">
                         <Listbox.Button className='w-[480px] relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                            <span className="block truncate font-medium text-[22px] font-Kumbh">{subSectorSelected.name}</span>
+                            <span className="block truncate font-medium text-[22px] font-Kumbh">{subSectorSelected.name || "Sub Sector"}</span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <IoIosArrowDown
                                     className=" text-[22px] mr-[36px]"
@@ -210,7 +211,7 @@ const Section = ({
                 <Listbox value={typeSelected} onChange={setTypeSelected}>
                     <div className="relative">
                         <Listbox.Button className='w-[480px] relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                            <span className="block truncate font-medium text-[22px] font-Kumbh">{typeSelected.name}</span>
+                            <span className="block truncate font-medium text-[22px] font-Kumbh">{typeSelected.name || "Type"}</span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <IoIosArrowDown
                                     className=" text-[22px] mr-[36px]"
@@ -257,7 +258,7 @@ const Section = ({
             <Listbox value={industryFunctionSelected} onChange={setIndustryFunctionSelected}>
                 <div className="relative">
                     <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                        <span className="block truncate font-medium text-[22px] font-Kumbh">{industryFunctionSelected.name}</span>
+                        <span className="block truncate font-medium text-[22px] font-Kumbh">{industryFunctionSelected.name || "Industry function"}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <IoIosArrowDown
                                 className=" text-[22px] mr-[36px]"
@@ -300,51 +301,55 @@ const Section = ({
                 </div>
             </Listbox>
 
-            <Listbox value={userFunctionSelected} onChange={setUserFunctionSelected}>
-                <div className="relative">
-                    <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
-                        <span className="block truncate font-medium text-[22px] font-Kumbh">{userFunctionSelected.name}</span>
-                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <IoIosArrowDown
-                                className=" text-[22px] mr-[36px]"
-                                aria-hidden="true"
-                            />
-                        </span>
-                    </Listbox.Button>
-                    <Transition
-                        as={Fragment}
-                        leave="transition ease-in duration-100"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                            {userFunction.map((item, index) => (
-                                <Listbox.Option
-                                    key={index}
-                                    className={({ active }) =>
-                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                        active ? 'bg-blue-100 text-amber-900' : 'text-gray-900'
-                                        }`
-                                    }
-                                    value={item}
-                                >
-                                {({ selected }) => (
-                                    <>
-                                        <span
-                                            className={`block truncate text-lg ${
-                                            selected ? 'font-medium' : 'font-normal'
-                                            }`}
-                                        >
-                                            {item.name}
-                                        </span>
-                                    </>
-                                )}
-                                </Listbox.Option>
-                            ))}
-                        </Listbox.Options>
-                    </Transition>
-                </div>
-            </Listbox>
+            {/* <div className='flex flex-col gap-2'> */}
+                <Listbox value={userFunctionSelected} onChange={setUserFunctionSelected}>
+                    <div className="relative">
+                        <Listbox.Button className='w-full relative cursor-default bg-[#fff] pl-5  py-6 outline-none text-[#000] flex items-center justify-between h-[80px]  font-semibold text-[22px] mt-[20px]' >
+                            <span className="block truncate font-medium text-[22px] font-Kumbh">{userFunctionSelected.name || "User Function"}</span>
+                            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                <IoIosArrowDown
+                                    className=" text-[22px] mr-[36px]"
+                                    aria-hidden="true"
+                                />
+                            </span>
+                        </Listbox.Button>
+                        <Transition
+                            as={Fragment}
+                            leave="transition ease-in duration-100"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
+                        >
+                            <Listbox.Options className="absolute mt-1 z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                {userFunction.map((item, index) => (
+                                    <Listbox.Option
+                                        key={index}
+                                        className={({ active }) =>
+                                            `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                            active ? 'bg-blue-100 text-amber-900' : 'text-gray-900'
+                                            }`
+                                        }
+                                        value={item}
+                                    >
+                                    {({ selected }) => (
+                                        <>
+                                            <span
+                                                className={`block truncate text-lg ${
+                                                selected ? 'font-medium' : 'font-normal'
+                                                }`}
+                                            >
+                                                {item.name}
+                                            </span>
+                                        </>
+                                    )}
+                                    </Listbox.Option>
+                                ))}
+                            </Listbox.Options>
+                        </Transition>
+                    </div>
+                </Listbox>
+                {/* {userFunctionSelected?.name === ""  ? <p className='text-[#f00] text-base'>User Function is Required</p> : null}
+            </div> */}
+
 
             <Listbox value={assessmentSelected} onChange={setAssessmentSelected}>
                 <div className="relative">
