@@ -117,6 +117,9 @@ allQuestions.forEach(question => {
                     <td className='h-[55px] px-4 '>
                         <p className='text-sm font-kumbh'>{nextQuestion.sector}</p>
                     </td>
+                    <td className='h-[55px] px-4'>
+                        <p className='text-sm font-kumbh'>{nextQuestion?.selectComplianceCat || "N/A"}</p>
+                    </td>
                     <td className='h-[55px] px-4 '>
                         <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{nextQuestion.text.slice(0, 20)}</p>
                     </td>
@@ -207,8 +210,10 @@ allQuestions.forEach(question => {
                                                 <td className='h-[55px] px-4 '>
                                                     <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{item?.text?.slice(0, 20)}</p>
                                                 </td>
-                                                <td className='h-[55px] px-4 '>
-                                                    <p className='text-sm font-kumbh bg-clip-text text-transparent bg-gradient-to-r from-[#000] to-[#fff]'>{item?.text?.slice(0, 20)}</p>
+                                                <td className='h-[55px] px-4'>
+                                                    <div className='bg-[#EBFCED] w-[36px] h-[31px] rounded-lg flex items-center justify-center'>
+                                                        <p className='text-sm font-kumbh'>{item?.options?.length}</p>
+                                                    </div>
                                                 </td>
                                                 <td className='h-[55px] px-4 ' onClick={() => item.options.some(option => option.nextQuestion) && toggleSubitems(index)}>
                                                     <div className='flex items-center gap-1.5'>
