@@ -363,7 +363,7 @@ const Questions = () => {
       options: addNewOption.map(option => ({
         text: option.optionText,
         point: Number(option.optionPoints),
-        evd: option?.optionImageName?.url,
+        evd: option?.optionImageName?.secure_url,
         evdText: option.optionEviQuestion,
         tips: option.optionTips,
         keyWord: option.optionKeyword
